@@ -93,12 +93,41 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public boolean editPhone(String number) {
+    public boolean editPhone(int id, String number) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sql = "select phone from user where id=" + id;
+        ResultSet rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            rs.updateString("phone", number);
+            rs.updateRow();
+            return true;
+        }
         return false;
     }
 
     @Override
-    public boolean editPassword(String password) {
+    public boolean editPassword(int id, String old_password, String password) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sql = "select password from user where id=" + id;
+        ResultSet rs = stmt.executeQuery(sql);
+        if (rs.next() && rs.getString("password").equals(old_password)) {
+            rs.updateString("password", password);
+            rs.updateRow();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean editDefaultAddress(int id, int default_address_id) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sql = "select default_address_id from user where id=" + id;
+        ResultSet rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            rs.updateInt("default_address_id", default_address_id);
+            rs.updateRow();
+            return true;
+        }
         return false;
     }
 
