@@ -2,6 +2,8 @@ package com.book.dao.daoImpl;
 
 import com.book.common.DatabaseConnector;
 import com.book.dao.ICategoryDao;
+import com.book.model.home.CategoryBean;
+import com.book.model.home.LevelCategoryBean;
 import com.book.model.home.SingleCategoryBean;
 
 import java.sql.Connection;
@@ -20,13 +22,28 @@ public class CategoryDao implements ICategoryDao {
 
     @Override
     public ArrayList getAllCategory() throws SQLException {
+        ArrayList<LevelCategoryBean> levelList = new ArrayList<>();
+        ArrayList<CategoryBean> categoriesList = new ArrayList<>();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        /**
-         * todo
-         */
-        String sql = "";
+        String sql = "select id, `name` from category where level=1";
         ResultSet rs = stmt.executeQuery(sql);
-        return null;
+        ResultSet rs2;
+        while (rs.next()) {
+            LevelCategoryBean levelLBean = new LevelCategoryBean();
+            levelLBean.setFirstCategory(rs.getString("name"));
+            int id = rs.getInt("id");
+            sql = "select id, `name` from category where pid=" + id;
+            rs2 = stmt.executeQuery(sql);
+            if (rs2.next()){
+                CategoryBean dataBean = new CategoryBean();
+                dataBean.setId(rs.getInt("id"));
+                dataBean.setName(rs.getString("name"));
+                categoriesList.add(dataBean);
+            }
+            levelLBean.setSecondCategory(categoriesList);
+            levelList.add(levelLBean);
+        }
+        return levelList;
     }
 
     @Override
