@@ -60,4 +60,22 @@ public class ProductDao implements IProductDao {
         }
         return recommendCategoryList;
     }
+
+    @Override
+    public ArrayList<ProductBean> searchProductByName(String name) throws SQLException {
+        ArrayList<ProductBean> list = new ArrayList<>();
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        String sql = "select id, title, price, author, publishing_house from product where title like '%" + name + "%'";
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            ProductBean dataBean = new ProductBean();
+            dataBean.setId(rs.getInt("id"));
+            dataBean.setTitle(rs.getString("title"));
+            dataBean.setPrice(rs.getFloat("price"));
+            dataBean.setAuthor(rs.getString("author"));
+            dataBean.setPublishing_house(rs.getString("publishing_house"));
+            list.add(dataBean);
+        }
+        return list;
+    }
 }

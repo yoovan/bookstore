@@ -1,5 +1,7 @@
 package com.book.dao;
 
+import com.book.model.home.ProductBean;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -9,4 +11,6 @@ public interface IProductDao {
     ArrayList getCarouselList() throws SQLException;
 
     ArrayList getRecommendCategories() throws SQLException;
+
+    ArrayList<ProductBean> searchProductByName(String name) throws SQLException;
 }
