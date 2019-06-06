@@ -29,7 +29,6 @@ public class UserDao implements IUserDao {
                 UserBean dataBean = this.initialUserData(rs);
                 userList.add(dataBean);
             }
-            System.out.println("get list success, it has " + userList.size() + " parameter...");
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
@@ -130,5 +129,43 @@ public class UserDao implements IUserDao {
         dataBean.setCreate_at(rs.getDate("created_at"));
         dataBean.setDeleted_at(rs.getDate("deleted_at"));
         return dataBean;
+    }
+
+    @Override
+    public UserBean userLogin(String username, String password) throws SQLException {
+        String sql = "select * from user where username=? and password=?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        pstmt.setString(2, password);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs != null) {
+            UserBean dataBean = new UserBean();
+            while(rs.next()) {
+                dataBean.setId(rs.getInt("id"));
+                dataBean.setRole_type(rs.getInt("role_type"));
+                dataBean.setUsername(rs.getString("username"));
+                dataBean.setAvatar(rs.getString("avatar"));
+            }
+            return dataBean;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean userRegister(String username, String password) throws SQLException {
+        UserBean dataBean = this.userLogin(username, password);
+        if (dataBean != null) {
+            return false;
+        }
+        String sql = "insert into user (username, role_type, password) values(?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        pstmt.setInt(2, 0);
+        pstmt.setString(3, password);
+        if (pstmt.execute()) {
+            return true;
+        }
+        return false;
     }
 }

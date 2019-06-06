@@ -2,6 +2,7 @@ package com.book.dao;
 
 import com.book.model.UserBean;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public interface IUserDao {
     boolean destroyUser(int id);
 
     int addUser(UserBean dataBean);
+
+    UserBean userLogin(String username, String password) throws SQLException;
+
+    boolean userRegister(String username, String password) throws SQLException;
 
 
 }
