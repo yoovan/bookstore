@@ -12,91 +12,35 @@
 </head>
 <body>
 <%@ include file="/jsp/home/common/head_nav.jsp" %>
+<c:set value="${requestScope.subList}" var="subList" scope="request" />
 <div class="container">
-    <p>计算机/网络 / 程序设计</p>
+    <p>${subList.name}</p>
     <div class="table-responsive">
         <table class="table">
             <tbody>
-            <tr>
-                <td>
-                    <div style="width: 80px; height: 80px;">
-                        <img src="img/1.jpg" alt="book" style="height:100%;">
-                    </div>
-                </td>
-                <td>
-                    <div>Java程序设计</div>
-                    <div class="text-danger">￥66.50</div>
-                    <div>XXXX著， 2011-01-01/中国邮电出版社</div>
-                </td>
-                <td>
-                    <a href="bookDetail.jsp" class="btn btn-sm btn-info btn-block">查看详情</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-block">加入购入车</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="width: 80px; height: 80px;">
-                        <img src="img/1.jpg" alt="book" style="height:100%;">
-                    </div>
-                </td>
-                <td>
-                    <div>Java程序设计</div>
-                    <div class="text-danger">￥66.50</div>
-                    <div>XXXX著， 2011-01-01/中国邮电出版社</div>
-                </td>
-                <td>
-                    <a href="bookDetail.jsp" class="btn btn-sm btn-info btn-block">查看详情</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-block">加入购入车</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="width: 80px; height: 80px;">
-                        <img src="img/1.jpg" alt="book" style="height:100%;">
-                    </div>
-                </td>
-                <td>
-                    <div>Java程序设计</div>
-                    <div class="text-danger">￥66.50</div>
-                    <div>XXXX著， 2011-01-01/中国邮电出版社</div>
-                </td>
-                <td>
-                    <a href="bookDetail.jsp" class="btn btn-sm btn-info btn-block">查看详情</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-block">加入购入车</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="width: 80px; height: 80px;">
-                        <img src="img/1.jpg" alt="book" style="height:100%;">
-                    </div>
-                </td>
-                <td>
-                    <div>Java程序设计</div>
-                    <div class="text-danger">￥66.50</div>
-                    <div>XXXX著， 2011-01-01/中国邮电出版社</div>
-                </td>
-                <td>
-                    <a href="bookDetail.jsp" class="btn btn-sm btn-info btn-block">查看详情</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-block">加入购入车</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="width: 80px; height: 80px;">
-                        <img src="img/1.jpg" alt="book" style="height:100%;">
-                    </div>
-                </td>
-                <td>
-                    <div>Java程序设计</div>
-                    <div class="text-danger">￥66.50</div>
-                    <div>XXXX著， 2011-01-01/中国邮电出版社</div>
-                </td>
-                <td>
-                    <a href="bookDetail.jsp" class="btn btn-sm btn-info btn-block">查看详情</a>
-                    <a href="#" class="btn btn-sm btn-danger btn-block">加入购入车</a>
-                </td>
-            </tr>
+            <c:if test="${subList.list.size() > 0}" var="isNull">
+                <c:forEach items="${subList.list}" var="dataBean" varStatus="beanStatus">
+                    <tr>
+                        <td>
+                            <div style="width: 80px; height: 80px;">
+                                <img src="<c:url value="${dataBean.url}" /> " alt="book" style="height:100%;">
+                            </div>
+                        </td>
+                        <td>
+                            <div>${dataBean.title}</div>
+                            <div class="text-danger">￥${dataBean.price}</div>
+                            <div>${dataBean.author} 著 ，${dataBean.publishing_time}/${dataBean.publishing_house}</div>
+                        </td>
+                        <td>
+                            <a href="bookDetail.jsp?id=${dataBean.id}" class="btn btn-sm btn-info btn-block">查看详情</a>
+                            <a href="#" class="btn btn-sm btn-danger btn-block">加入购入车</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+            <c:if test="${not isNull}">
+                <p class="text-center">该类别暂无商品</p>
+            </c:if>
             </tbody>
         </table>
     </div>
