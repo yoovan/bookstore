@@ -5,11 +5,14 @@ import com.book.dao.IProductDao;
 import com.book.model.home.ProductBean;
 import com.book.model.home.RecommendCategoryBean;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class ProductDao implements IProductDao {
 
@@ -41,22 +44,35 @@ public class ProductDao implements IProductDao {
     }
 
     @Override
-    public ArrayList getRecommendCategories() throws SQLException {
+    public ArrayList getRecommendCategories() throws SQLException, UnsupportedEncodingException {
         ArrayList<RecommendCategoryBean> recommendCategoryList = new ArrayList<>();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "select p.id as product_id,c.id as category_id, p.author, p.publishing_house, i.url,p.title, p.price, c.name from (product as p INNER JOIN category as c on p.category_id=c.id) INNER JOIN image as i ON p.id=i.product_id WHERE i.type=0";
+        String sql = "select id, `name` from category where type=1";
         ResultSet rs = stmt.executeQuery(sql);
+        ResultSet rs2;
         while (rs.next()) {
             RecommendCategoryBean dataBean = new RecommendCategoryBean();
-            dataBean.setProduct_id(rs.getInt("product_id"));
-            dataBean.setCategory_id(rs.getInt("category_id"));
-            dataBean.setTitle(rs.getString("title"));
+            dataBean.setCategory_id(rs.getInt("id"));
             dataBean.setName(rs.getString("name"));
-            dataBean.setPrice(rs.getFloat("price"));
-            dataBean.setUrl(rs.getString("url"));
-            dataBean.setAuthor(rs.getString("author"));
-            dataBean.setPublishing_house(rs.getString("publishing_house"));
             recommendCategoryList.add(dataBean);
+        }
+        int length = recommendCategoryList.size();
+        for (int i = 0 ;i < length; i++) {
+            int id = recommendCategoryList.get(i).getCategory_id();
+            sql = "select p.id as product_id,c.id as category_id, p.author, p.publishing_house, i.url,p.title, p.price, c.name from (product as p INNER JOIN category as c on p.category_id=c.id) INNER JOIN image as i ON p.id=i.product_id WHERE i.type=0 and c.id=" + id;
+            rs2 = stmt.executeQuery(sql);
+            ArrayList productList = new ArrayList();
+            while(rs2.next()) {
+                ProductBean productBean = new ProductBean();
+                productBean.setId(rs2.getInt("product_id"));
+                productBean.setTitle(rs2.getString("title"));
+                productBean.setAuthor(rs2.getString("author"));
+                productBean.setPublishing_house(rs2.getString("publishing_house"));
+                productBean.setPrice(rs2.getFloat("price"));
+                productBean.setUrl(rs2.getString("url"));
+                productList.add(productBean);
+            }
+            recommendCategoryList.get(i).setList(productList);
         }
         return recommendCategoryList;
     }

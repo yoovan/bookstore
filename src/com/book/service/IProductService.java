@@ -1,17 +1,11 @@
-package com.book.dao;
-
-import com.book.model.home.ProductBean;
+package com.book.service;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface IProductDao {
-
-    // 获取轮播的产品
+public interface IProductService {
     ArrayList getCarouselList() throws SQLException;
 
     ArrayList getRecommendCategories() throws SQLException, UnsupportedEncodingException;
-
-    ArrayList<ProductBean> searchProductByName(String name) throws SQLException;
 }
