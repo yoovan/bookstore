@@ -9,16 +9,18 @@ public class DatabaseConnector {
     static String dbName = "book";
     static String username = "root";
     static String password = "yostar";
-
+    static Connection conn = null;
     public DatabaseConnector() {
     }
 
     public static Connection connect() {
-        Connection conn = null;
+
         String url = "jdbc:mysql://" + ip + "/" + dbName + "?useUnicode=true&characterEncoding=utf8&useSSL=false";
 
         try {
-            conn = DriverManager.getConnection(url, username, password);
+            if (conn == null) {
+                conn = DriverManager.getConnection(url, username, password);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
