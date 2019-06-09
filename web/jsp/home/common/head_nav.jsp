@@ -11,9 +11,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-sm">
                 <li>
-                    <form class="navbar-form navbar-left" action="search.jsp">
+                    <form class="navbar-form navbar-left" action="search.jsp" method="get">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="输入关键字查询">
+                            <input type="text" class="form-control" name="name" placeholder="输入关键字查询">
                         </div>
                         <button type="submit" class="btn btn-primary">搜索</button>
                     </form>

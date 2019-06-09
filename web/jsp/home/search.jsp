@@ -12,89 +12,37 @@
 </head>
 <body>
 <%@ include file="/jsp/home/common/head_nav.jsp" %>
+<c:set value="${requestScope.searchList}" var="searchList" scope="request" />
+<c:set value="${searchList.size()}" var="length" scope="request" />
 <div class="container">
-    <p>共有“4”条搜索结果</p>
+    <c:if test="${length > 0}" var="isNull" >
+        <p>共有“${length}”条搜索结果</p>
+    </c:if>
+    <c:if test="${not isNull}">
+        <p class="text-center">暂无搜索结果</p>
+    </c:if>
     <div class="row">
-        <div class="col-sm-4 col-md-3">
-            <div class="thumbnail">
-                <a href="#">
-                    <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNDggMjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIG1lZXQiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIj48ZGVmcyAvPjxyZWN0IGZpbGw9IiNlZWVlZWUiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIiAvPjxnPjx0ZXh0IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMjJweDsgZm9udC13ZWlnaHQ6IGJvbGQ7IGRvbWluYW50LWJhc2VsaW5lOiBjZW50cmFsOyBmaWxsOiAjYWFhYWFhOyIgeD0iMTMxLjE2IiB5PSIxMDAiPjM0OHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
-                         data-src="holder.js/100%x200" data-holder-rendered="true">
-                </a>
-                <div class="caption">
-                    <div class="text-left">林徽因传</div>
-                    <div>
-                        <span class="text-left text-danger">￥100.00</span>
+        <c:forEach items="${searchList}" var="dataBean" varStatus="itemStatus">
+            <div class="col-sm-4 col-md-3">
+                <div class="thumbnail">
+                    <a href="#">
+                        <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
+                             src="${dataBean.url}" >
+                    </a>
+                    <div class="caption">
+                        <div class="text-left">${dataBean.title}</div>
+                        <div>
+                            <span class="text-left text-danger">￥${dataBean.price}</span>
+                        </div>
+                        <div class="small" style="height: 60px;">
+                            ${dataBean.author} 著 / ${dataBean.publishing_house}
+                        </div>
+                        <p><a class="btn btn-primary btn-block" role="button" href="bookDetail.jsp?id=${dataBean.id}">查看详情</a></p>
+                        <p><a href="#" class="btn btn-danger btn-block" role="button">加入购物车</a></p>
                     </div>
-                    <div class="small">
-                        XXX著 / 中国邮电出版社
-                    </div>
-                    <p><a class="btn btn-primary btn-block" role="button" href="bookDetail.jsp">查看详情</a></p>
-                    <p><a href="#" class="btn btn-danger btn-block" role="button">加入购物车</a></p>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4 col-md-3">
-            <div class="thumbnail">
-                <a href="#">
-                    <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNDggMjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIG1lZXQiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIj48ZGVmcyAvPjxyZWN0IGZpbGw9IiNlZWVlZWUiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIiAvPjxnPjx0ZXh0IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMjJweDsgZm9udC13ZWlnaHQ6IGJvbGQ7IGRvbWluYW50LWJhc2VsaW5lOiBjZW50cmFsOyBmaWxsOiAjYWFhYWFhOyIgeD0iMTMxLjE2IiB5PSIxMDAiPjM0OHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
-                         data-src="holder.js/100%x200" data-holder-rendered="true">
-                </a>
-                <div class="caption">
-                    <div class="text-left">林徽因传</div>
-                    <div>
-                        <span class="text-left text-danger">￥100.00</span>
-                    </div>
-                    <div class="small">
-                        XXX著 / 中国邮电出版社
-                    </div>
-                    <p><a class="btn btn-primary btn-block" role="button" href="bookDetail.jsp">查看详情</a></p>
-                    <p><a href="#" class="btn btn-danger btn-block" role="button">加入购物车</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4 col-md-3">
-            <div class="thumbnail">
-                <a href="#">
-                    <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNDggMjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIG1lZXQiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIj48ZGVmcyAvPjxyZWN0IGZpbGw9IiNlZWVlZWUiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIiAvPjxnPjx0ZXh0IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMjJweDsgZm9udC13ZWlnaHQ6IGJvbGQ7IGRvbWluYW50LWJhc2VsaW5lOiBjZW50cmFsOyBmaWxsOiAjYWFhYWFhOyIgeD0iMTMxLjE2IiB5PSIxMDAiPjM0OHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
-                         data-src="holder.js/100%x200" data-holder-rendered="true">
-                </a>
-                <div class="caption">
-                    <div class="text-left">林徽因传</div>
-                    <div>
-                        <span class="text-left text-danger">￥100.00</span>
-                    </div>
-                    <div class="small">
-                        XXX著 / 中国邮电出版社
-                    </div>
-                    <p><a class="btn btn-primary btn-block" role="button" href="bookDetail.jsp">查看详情</a></p>
-                    <p><a href="#" class="btn btn-danger btn-block" role="button">加入购物车</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4 col-md-3">
-            <div class="thumbnail">
-                <a href="#">
-                    <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNDggMjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIG1lZXQiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIj48ZGVmcyAvPjxyZWN0IGZpbGw9IiNlZWVlZWUiIHdpZHRoPSIzNDgiIGhlaWdodD0iMjAwIiAvPjxnPjx0ZXh0IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMjJweDsgZm9udC13ZWlnaHQ6IGJvbGQ7IGRvbWluYW50LWJhc2VsaW5lOiBjZW50cmFsOyBmaWxsOiAjYWFhYWFhOyIgeD0iMTMxLjE2IiB5PSIxMDAiPjM0OHgyMDA8L3RleHQ+PC9nPjwvc3ZnPg=="
-                         data-src="holder.js/100%x200" data-holder-rendered="true">
-                </a>
-                <div class="caption">
-                    <div class="text-left">林徽因传</div>
-                    <div>
-                        <span class="text-left text-danger">￥100.00</span>
-                    </div>
-                    <div class="small">
-                        XXX著 / 中国邮电出版社
-                    </div>
-                    <p><a class="btn btn-primary btn-block" role="button" href="bookDetail.jsp">查看详情</a></p>
-                    <p><a href="#" class="btn btn-danger btn-block" role="button">加入购物车</a></p>
-                </div>
-            </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 <%@ include file="/jsp/home/common/footer.jsp" %>

@@ -82,8 +82,10 @@ public class ProductDao implements IProductDao {
         ArrayList<ProductBean> list = new ArrayList<>();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         String sql = "select id, title, price, author, publishing_house from product where title like '%" + name + "%'";
+        System.out.println("sql: " + sql);
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
+            System.out.println("row");
             ProductBean dataBean = new ProductBean();
             dataBean.setId(rs.getInt("id"));
             dataBean.setTitle(rs.getString("title"));
