@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "HomeServlet", urlPatterns = {"/", "/index.jsp"})
+@WebServlet(name = "HomeServlet", urlPatterns = {"/index", "/index.jsp"})
 public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=utf-8");
+        response.setContentType("text.html;charset:utf-8");
         ArrayList carouselList = (ArrayList) request.getAttribute("carouselList");
         ArrayList categoryList = (ArrayList) request.getAttribute("recommendCategoryList");
         ProductService productService = new ProductService();
@@ -32,10 +32,9 @@ public class HomeServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        ProductService productService2 = new ProductService();
         if (categoryList == null) {
             try {
-                categoryList = productService2.getRecommendCategories();
+                categoryList = productService.getRecommendCategories();
                 request.setAttribute("recommendCategoryList", categoryList);
             } catch (SQLException e) {
                 e.printStackTrace();
