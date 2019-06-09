@@ -183,18 +183,14 @@ public class UserDao implements IUserDao {
 
     @Override
     public boolean userRegister(String username, String password) throws SQLException {
-        UserBean dataBean = this.userLogin(username, password);
-        if (dataBean != null) {
-            return false;
-        }
+//        UserBean dataBean = this.userLogin(username, password);
+
         String sql = "insert into user (username, role_type, password) values(?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, username);
         pstmt.setInt(2, 0);
         pstmt.setString(3, password);
-        if (pstmt.execute()) {
-            return true;
-        }
-        return false;
+        pstmt.execute();
+        return true;
     }
 }

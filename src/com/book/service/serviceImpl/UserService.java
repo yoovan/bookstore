@@ -5,6 +5,7 @@ import com.book.dao.daoImpl.UserDao;
 import com.book.model.UserBean;
 import com.book.service.IUserService;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserService implements IUserService {
@@ -24,5 +25,15 @@ public class UserService implements IUserService {
     @Override
     public boolean editBasicInfo(UserBean dataBean) {
         return userDao.editBasicInfo(dataBean);
+    }
+
+    @Override
+    public UserBean userLogin(String username, String password) throws SQLException {
+        return userDao.userLogin(username, password);
+    }
+
+    @Override
+    public boolean userRegister(String username, String password) throws SQLException {
+        return userDao.userRegister(username, password);
     }
 }
