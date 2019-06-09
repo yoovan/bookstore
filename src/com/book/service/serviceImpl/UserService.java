@@ -3,6 +3,7 @@ package com.book.service.serviceImpl;
 import com.book.dao.IUserDao;
 import com.book.dao.daoImpl.UserDao;
 import com.book.model.UserBean;
+import com.book.model.home.CenterPersonInfo;
 import com.book.service.IUserService;
 
 import java.sql.SQLException;
@@ -23,6 +24,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public CenterPersonInfo getUserByIdOfCenter(int id) {
+        return userDao.getUserByIdOfCenter(id);
+    }
+
+    @Override
     public boolean editBasicInfo(UserBean dataBean) {
         return userDao.editBasicInfo(dataBean);
     }
@@ -35,5 +41,10 @@ public class UserService implements IUserService {
     @Override
     public boolean userRegister(String username, String password) throws SQLException {
         return userDao.userRegister(username, password);
+    }
+
+    @Override
+    public boolean editPassword(int id, String old_password, String password) throws SQLException {
+        return userDao.editPassword(id, old_password, password);
     }
 }

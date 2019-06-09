@@ -1,5 +1,9 @@
 package com.book.controller.home;
 
+import com.book.model.UserBean;
+import com.book.model.home.CenterPersonInfo;
+import com.book.service.serviceImpl.UserService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +19,12 @@ public class CenterServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println("id: " + id);
+        UserService userService = new UserService();
+        CenterPersonInfo centerPersonInfo = userService.getUserByIdOfCenter(id);
+        System.out.println("username: " + centerPersonInfo.getUsername());
+        request.setAttribute("userBean", centerPersonInfo);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/home/center.jsp");
         dispatcher.forward(request, response);
     }

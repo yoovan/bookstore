@@ -3,6 +3,7 @@ package com.book.dao.daoImpl;
 import com.book.common.DatabaseConnector;
 import com.book.dao.IUserDao;
 import com.book.model.UserBean;
+import com.book.model.home.CenterPersonInfo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,20 +37,44 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public UserBean getUserById(int id) {
-        UserBean dataBean = null;
+    public CenterPersonInfo getUserByIdOfCenter(int id) {
+        CenterPersonInfo centerPersonInfo = new CenterPersonInfo();
         try {
-            String sql = "select * from user where id=?";
+            String sql = "select u.id, u.username,u.phone, province, city, area, detail, a.username as contactName, a.phone as contactPhone from user as u join address as a on u.default_address_id=a.id where u.id=?";
+            System.out.println("sql: " + sql);
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            dataBean = this.initialUserData(rs);
-            System.out.println("get user who id is " + id + " is success...");
+            if (rs.next()) {
+                System.out.println("have data: " + rs.getString("username"));
+                centerPersonInfo.setId(rs.getInt("id"));
+                centerPersonInfo.setUsername(rs.getString("username"));
+                centerPersonInfo.setPhone(rs.getString("phone"));
+                centerPersonInfo.setAddress(rs.getString("province")+rs.getString("city")+rs.getString("area")+rs.getString("detail"));
+                centerPersonInfo.setContactName(rs.getString("contactName"));
+                centerPersonInfo.setContactPhone(rs.getString("contactPhone"));
+            }
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
-        return dataBean;
+        return centerPersonInfo;
+    }
+
+    @Override
+    public UserBean getUserById(int id) {
+        UserBean userBean = null;
+        String sql = "select * from user where id=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                userBean = this.initialUserData(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userBean;
     }
 
     @Override
@@ -139,11 +164,6 @@ public class UserDao implements IUserDao {
     @Override
     public boolean destroyUser(int id) {
         return false;
-    }
-
-    @Override
-    public int addUser(UserBean dataBean) {
-        return 0;
     }
 
     private UserBean initialUserData(ResultSet rs) throws SQLException {

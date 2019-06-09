@@ -38,33 +38,34 @@
         </div>
 
         <ul class="nav nav-tabs nav-justified" id="myTabs">
-            <li class="active"><a href="#editInfo">信息修改</a></li>
-            <li><a href="#editPassword">密码修改</a></li>
+            <li class="active"><a href="#editInfo">个人资料</a></li>
+            <%--<li><a href="#editPassword">密码修改</a></li>--%>
             <li><a href="#orderManager">订单管理</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="editInfo">
+                <c:set value="${requestScope.userBean}" var="userBean" />
                 <div class="table-responsive" style="padding: 20px;">
                     <table class="table">
                         <tbody>
                         <tr>
                             <td>用户名</td>
-                            <td>yostar</td>
+                            <td>${sessionScope.loginUser.username}</td>
                             <td><a href="#" class="text-info">修改</a></td>
                         </tr>
                         <tr>
                             <td>手机号码</td>
-                            <td>12345678900</td>
+                            <td>${userBean.phone}</td>
                             <td><a href="#" class="text-info">修改</a></td>
                         </tr>
                         <tr>
                             <td>默认收货地址</td>
                             <td>
-                                <div>广东省广州市xx区xx街道xx号xx大学</div>
-                                <div>yostar</div>
-                                <div>12345678900</div>
+                                <div>${userBean.address}</div>
+                                <div>${userBean.contactName}</div>
+                                <div>${userBean.contactPhone}</div>
                             </td>
                             <td>
                                 <a href="#" class="text-info">修改</a>
@@ -74,38 +75,38 @@
                     </table>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="editPassword">
+            <%--<div role="tabpanel" class="tab-pane" id="editPassword">
                 <div class="container" style="margin-top: 20px;">
                     <div class="col-sm-12">
-                        <form class="form-horizontal caption">
+                        <form class="form-horizontal caption" action="passwordEdit" method="post">
                             <div class="form-group">
                                 <label for="old_password" class="col-sm-4 control-label">旧密码</label>
                                 <div class="col-sm-5">
-                                    <input type="password" class="form-control" id="old_password" placeholder="请输入旧密码">
+                                    <input type="password" class="form-control" id="old_password" name="oldPassword" placeholder="请输入旧密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="new_password" class="col-sm-4 control-label">新密码</label>
                                 <div class="col-sm-5">
-                                    <input type="password" class="form-control" id="new_password" placeholder="请输入新密码">
+                                    <input type="password" class="form-control" id="new_password" name="newPassword" placeholder="请输入新密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="confirm_password" class="col-sm-4 control-label">确认密码</label>
                                 <div class="col-sm-5">
-                                    <input type="password" class="form-control" id="confirm_password"
+                                    <input type="password" class="form-control" id="confirm_password" name="confirmPassword"
                                            placeholder="请确认密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-5">
-                                    <button type="submit" class="btn btn-info btn-block">立即修改</button>
+                                    <input type="submit" class="btn btn-info btn-block" value="立即修改"></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>--%>
             <div role="tabpanel" class="tab-pane" id="orderManager">
                 <div class="table-responsive">
                     <table class="table table-hover">

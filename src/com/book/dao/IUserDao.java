@@ -1,16 +1,18 @@
 package com.book.dao;
 
 import com.book.model.UserBean;
+import com.book.model.home.CenterPersonInfo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public interface IUserDao {
 
     // 用户数据交互接口类
 
     ArrayList getUserList();
+
+    CenterPersonInfo getUserByIdOfCenter(int id);
 
     UserBean getUserById(int id);
 
@@ -25,8 +27,6 @@ public interface IUserDao {
     boolean editRoleType(int type);
 
     boolean destroyUser(int id);
-
-    int addUser(UserBean dataBean);
 
     UserBean userLogin(String username, String password) throws SQLException;
 
