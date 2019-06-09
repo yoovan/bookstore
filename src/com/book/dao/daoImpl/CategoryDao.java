@@ -23,7 +23,6 @@ public class CategoryDao implements ICategoryDao {
     @Override
     public ArrayList getAllCategory() throws SQLException {
         ArrayList<LevelCategoryBean> levelList = new ArrayList<>();
-        ArrayList<CategoryBean> categoriesList = new ArrayList<>();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         String sql = "select id, `name` from category where level=1";
         ResultSet rs = stmt.executeQuery(sql);
@@ -31,17 +30,20 @@ public class CategoryDao implements ICategoryDao {
         while (rs.next()) {
             LevelCategoryBean levelLBean = new LevelCategoryBean();
             levelLBean.setFirstCategory(rs.getString("name"));
-            int id = rs.getInt("id");
-            sql = "select id, `name` from category where pid=" + id;
+            levelLBean.setId(rs.getInt("id"));
+            levelList.add(levelLBean);
+        }
+        for (int i = 0; i < levelList.size(); i++) {
+            sql = "select id, `name` from category where level=2 and pid=" + levelList.get(i).getId();
             rs2 = stmt.executeQuery(sql);
-            if (rs2.next()){
+            ArrayList<CategoryBean> categoriesList = new ArrayList<>();
+            while (rs2.next()){
                 CategoryBean dataBean = new CategoryBean();
-                dataBean.setId(rs.getInt("id"));
-                dataBean.setName(rs.getString("name"));
+                dataBean.setId(rs2.getInt("id"));
+                dataBean.setName(rs2.getString("name"));
                 categoriesList.add(dataBean);
             }
-            levelLBean.setSecondCategory(categoriesList);
-            levelList.add(levelLBean);
+            levelList.get(i).setSecondCategory(categoriesList);
         }
         return levelList;
     }

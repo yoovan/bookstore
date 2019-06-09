@@ -12,33 +12,27 @@
 </head>
 <body>
 <%@ include file="/jsp/home/common/head_nav.jsp" %>
+<c:set var="categoryList" value="${requestScope.categoryList}" scope="request" />
 <div class="container">
     <p>全部分类</p>
     <div class="list-group">
-        <div class="list-group-item">
-            <div class="list-group-item-heading">计算机/网络</div>
-            <div class="list-group-item-text">
-                <p><a href="categoryDetail.jsp">程序设计</a> | <a href="">网络</a> | <a href="">计算机科学理论与基础知识</a></p>
+        <c:forEach items="${categoryList}" var="dataItem" varStatus="itemStatus">
+            <div class="list-group-item">
+                <div class="list-group-item-heading">${dataItem.firstCategory}</div>
+                <div class="list-group-item-text">
+                    <p>
+                        <c:forEach items="${dataItem.secondCategory}" var="dataBean" varStatus="beanStatus">
+                            <c:if test="${beanStatus.count == dataItem.secondCategory.size()}" var="isLast">
+                                <a href="categoryDetail.jsp?id=${dataBean.id}">${dataBean.name}</a>
+                            </c:if>
+                            <c:if test="${not isLast}">
+                                <a href="categoryDetail.jsp?id=${dataBean.id}">${dataBean.name}</a> |
+                            </c:if>
+                        </c:forEach>
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="list-group-item">
-            <div class="list-group-item-heading">计算机/网络</div>
-            <div class="list-group-item-text">
-                <p><a href="">程序设计</a> | <a href="">网络</a> | <a href="">计算机科学理论与基础知识</a></p>
-            </div>
-        </div>
-        <div class="list-group-item">
-            <div class="list-group-item-heading">计算机/网络</div>
-            <div class="list-group-item-text">
-                <p><a href="">程序设计</a> | <a href="">网络</a> | <a href="">计算机科学理论与基础知识</a></p>
-            </div>
-        </div>
-        <div class="list-group-item">
-            <div class="list-group-item-heading">计算机/网络</div>
-            <div class="list-group-item-text">
-                <p><a href="">程序设计</a> | <a href="">网络</a> | <a href="">计算机科学理论与基础知识</a></p>
-            </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 <%@ include file="/jsp/home/common/footer.jsp" %>
