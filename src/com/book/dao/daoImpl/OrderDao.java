@@ -24,7 +24,7 @@ public class OrderDao implements IOrderDao {
         ArrayList<OrderBean> list = new ArrayList();
         OrderManagerBean targetBean = new OrderManagerBean();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "select id, order_no, status, product_count, order_amount_total from order where user_id=" + id;
+        String sql = "select id, order_no, status, product_count, order_amount_total from `order` where user_id=" + id;
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
             OrderBean dataBean = new OrderBean();

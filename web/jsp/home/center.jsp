@@ -120,144 +120,49 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="text-center">
-                                <div onclick="myClick(1)">ahiudsfhjk-23423-23asd-12</div>
-                            </td>
-                            <td class="text-center"><span class="text-danger">未付款</span></td>
-                            <td class="text-center">
-                                <span>12</span>
-                            </td>
-                            <td class="text-center">
-                                <span>$20000.00</span>
-                            </td>
+                        <c:forEach items="${requestScope.orderList.list}" var="dataBean" varStatus="beanStatus">
+                            <tr>
+                                <td class="text-center">
+                                    <div onclick="myClick(1)">${dataBean.order_no}</div>
+                                </td>
+                                <td class="text-center">
+                                    <c:choose>
+                                        <c:when test="${dataBean.status == 0}">
+                                            <span class="text-danger">未付款</span>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 1}">
+                                            <span class="text-danger">已付款</span>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 2}">
+                                            <span class="text-danger">已发货</span>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 3}">
+                                            <span class="text-danger">已签收</span>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 4}">
+                                            <span class="text-danger">取消交易</span>
+                                        </c:when>
+                                    </c:choose>
+                                </td>
+                                <td class="text-center">
+                                    <span>${dataBean.product_count}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span>￥${dataBean.order_amount_total}</span>
+                                </td>
 
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
-                                        class="glyphicon glyphicon-shopping-cart"></i></a>
-                                <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
-                                        class="glyphicon glyphicon-eye-open"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
-                                        class="glyphicon glyphicon-remove"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
-                                        class="glyphicon glyphicon-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="" onclick="myClick(1)">ahiudsfhjk-23423-23asd-12</div>
-                            </td>
-                            <td class="text-center"><span class="text-info">已付款</span></td>
-                            <td class="text-center">
-                                <span>12</span>
-                            </td>
-                            <td class="text-center">
-                                <span>$20000.00</span>
-                            </td>
-
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
-                                        class="glyphicon glyphicon-shopping-cart"></i></a>
-                                <a href="orderDetail.jsp" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
-                                        class="glyphicon glyphicon-eye-open"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
-                                        class="glyphicon glyphicon-remove"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
-                                        class="glyphicon glyphicon-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="" onclick="myClick(1)">ahiudsfhjk-23423-23asd-12</div>
-                            </td>
-                            <td class="text-center"><span class="text-danger">已取消</span></td>
-                            <td class="text-center">
-                                <span>12</span>
-                            </td>
-                            <td class="text-center">
-                                <span>$20000.00</span>
-                            </td>
-
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
-                                        class="glyphicon glyphicon-shopping-cart"></i></a>
-                                <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
-                                        class="glyphicon glyphicon-eye-open"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
-                                        class="glyphicon glyphicon-remove"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
-                                        class="glyphicon glyphicon-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="" onclick="myClick(1)">ahiudsfhjk-23423-23asd-12</div>
-                            </td>
-                            <td class="text-center"><span class="text-info">已发货</span></td>
-                            <td class="text-center">
-                                <span>12</span>
-                            </td>
-                            <td class="text-center">
-                                <span>$20000.00</span>
-                            </td>
-
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
-                                        class="glyphicon glyphicon-shopping-cart"></i></a>
-                                <a href="orderDetail.jsp" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
-                                        class="glyphicon glyphicon-eye-open"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
-                                        class="glyphicon glyphicon-remove"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
-                                        class="glyphicon glyphicon-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div class="" onclick="myClick(1)">ahiudsfhjk-23423-23asd-12</div>
-                            </td>
-                            <td class="text-center"><span class="text-danger">未付款</span></td>
-                            <td class="text-center">
-                                <span>12</span>
-                            </td>
-                            <td class="text-center">
-                                <span>$20000.00</span>
-                            </td>
-
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
-                                        class="glyphicon glyphicon-shopping-cart"></i></a>
-                                <a href="orderDetail.jsp" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
-                                        class="glyphicon glyphicon-eye-open"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
-                                        class="glyphicon glyphicon-remove"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
-                                        class="glyphicon glyphicon-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <div onclick="myClick(1)">ahiudsfhjk-23423-23asd-12</div>
-                            </td>
-                            <td class="text-center"><span class="text-success">已完成</span></td>
-                            <td class="text-center">
-                                <span>12</span>
-                            </td>
-                            <td class="text-center">
-                                <span>$20000.00</span>
-                            </td>
-
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
-                                        class="glyphicon glyphicon-shopping-cart"></i></a>
-                                <a href="orderDetail.jsp" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
-                                        class="glyphicon glyphicon-eye-open"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
-                                        class="glyphicon glyphicon-remove"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
-                                        class="glyphicon glyphicon-trash"></i></a>
-                            </td>
-                        </tr>
+                                <td class="text-center">
+                                    <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
+                                            class="glyphicon glyphicon-shopping-cart"></i></a>
+                                    <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
+                                            class="glyphicon glyphicon-eye-open"></i></a>
+                                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
+                                            class="glyphicon glyphicon-remove"></i></a>
+                                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
+                                            class="glyphicon glyphicon-trash"></i></a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                         <tfoot>
                         <tr>
@@ -265,11 +170,9 @@
                                 <nav class="text-center">
                                     <ul class="pagination pagination-danger">
                                         <li><a href="#" class="btn-primary">&laquo;</a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#" class="btn-primary">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
+                                        <c:forEach var="i" begin="1" end="${requestScope.orderList.totalPage}" step="1">
+                                            <li><a href="#">${i}</a></li>
+                                        </c:forEach>
                                         <li><a href="#">&raquo;</a></li>
                                     </ul>
                                 </nav>
