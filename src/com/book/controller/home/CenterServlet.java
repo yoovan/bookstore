@@ -35,14 +35,12 @@ public class CenterServlet extends HttpServlet {
         try {
             OrderService orderService = new OrderService();
             OrderManagerBean targetBean = orderService.getAllOrderByUserId(id, 8);
-            System.out.println("page: " + targetBean.getPerPageSize());
             request.setAttribute("orderList", targetBean);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("username: " + centerPersonInfo.getUsername());
         request.setAttribute("userBean", centerPersonInfo);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/home/center.jsp");
         dispatcher.forward(request, response);
