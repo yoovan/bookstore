@@ -131,13 +131,13 @@
                                             <span class="text-danger">未付款</span>
                                         </c:when>
                                         <c:when test="${dataBean.status == 1}">
-                                            <span class="text-danger">已付款</span>
+                                            <span class="text-success">已付款</span>
                                         </c:when>
                                         <c:when test="${dataBean.status == 2}">
-                                            <span class="text-danger">已发货</span>
+                                            <span class="text-info">已发货</span>
                                         </c:when>
                                         <c:when test="${dataBean.status == 3}">
-                                            <span class="text-danger">已签收</span>
+                                            <span class="text-success">已签收</span>
                                         </c:when>
                                         <c:when test="${dataBean.status == 4}">
                                             <span class="text-danger">取消交易</span>
@@ -154,7 +154,7 @@
                                 <td class="text-center">
                                     <c:choose>
                                         <c:when test="${dataBean.status == 0}">
-                                            <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
+                                            <a href="payOrder.jsp?id=${dataBean.id}" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
                                                     class="glyphicon glyphicon-shopping-cart"></i></a>
                                             <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
                                                     class="glyphicon glyphicon-eye-open"></i></a>

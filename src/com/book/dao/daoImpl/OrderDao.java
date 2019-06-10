@@ -82,4 +82,15 @@ public class OrderDao implements IOrderDao {
         pstmt.setFloat(5, totalAmount);
         pstmt.execute();
     }
+
+    @Override
+    public boolean payOrderById(int id) throws SQLException {
+        String sql = "update `order` set status=1 where id=" + id;
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        int result = stmt.executeUpdate(sql);
+        if (result > 0) {
+            return true;
+        }
+        return false;
+    }
 }
