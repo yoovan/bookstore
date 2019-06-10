@@ -1,5 +1,6 @@
 package com.book.controller.home;
 
+import com.book.model.UserBean;
 import com.book.service.serviceImpl.OrderService;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ public class OrderCancelServlet extends HttpServlet {
         try {
             OrderService orderService = new OrderService();
             orderService.cancelOrderById(id);
-            response.sendRedirect("center.jsp");
+            response.sendRedirect("center.jsp?id=" + ((UserBean)request.getSession().getAttribute("loginUser")).getId());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

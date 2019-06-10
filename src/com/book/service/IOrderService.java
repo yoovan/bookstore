@@ -10,4 +10,6 @@ public interface IOrderService {
     boolean cancelOrderById(int id) throws SQLException;
 
     boolean destroyOrderById(int id) throws SQLException;
+
+    void addOrderItem(String order_no, int user_id,int count, float totalAmount) throws SQLException;
 }

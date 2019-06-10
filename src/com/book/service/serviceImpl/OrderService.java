@@ -26,4 +26,9 @@ public class OrderService implements IOrderService {
     public boolean destroyOrderById(int id) throws SQLException {
         return orderDao.destroyOrderById(id);
     }
+
+    @Override
+    public void addOrderItem(String order_no, int user_id, int count, float totalAmount) throws SQLException {
+        orderDao.addOrderItem(order_no, user_id, count, totalAmount);
+    }
 }

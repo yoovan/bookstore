@@ -44,7 +44,7 @@
             <c:forEach var="dataBean" items="${requestScope.carouselList}" varStatus="listStatus">
                 <c:if test="${listStatus.index == 0}" var="isFirst">
                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                </c:if>     
+                </c:if>
                 <c:if test="${not isFirst}">
                     <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                 </c:if>
@@ -56,7 +56,7 @@
                     <div class="item active" onclick="window.location.href = 'bookDetail.jsp?id=${dataBean.id}'">
                         <img src="<c:url value="${dataBean.url}" />" alt="" style="height: 500px;width: 100%;">
                         <div class="carousel-caption">
-                            <c:out value="${dataBean.title}" />
+                            <c:out value="${dataBean.title}"/>
                         </div>
                     </div>
                 </c:if>
@@ -64,7 +64,7 @@
                     <div class="item" onclick="window.location.href = 'bookDetail.jsp?id=${dataBean.id}'">
                         <img src="<c:url value="${dataBean.url}" />" alt="" style="height: 500px;width: 100%;">
                         <div class="carousel-caption">
-                            <c:out value="${dataBean.title}" />
+                            <c:out value="${dataBean.title}"/>
                         </div>
                     </div>
                 </c:if>
@@ -99,23 +99,42 @@
                                 <div class="thumbnail">
                                     <a href="#">
                                         <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-                                             src="<c:url value="${productBean.url}" />" />
+                                             src="<c:url value="${productBean.url}" />"/>
                                     </a>
                                     <div class="caption">
-                                        <div class="text-left" style="width: 100%; height: 30px; overflow: hidden;">${productBean.title}</div>
+                                        <div class="text-left"
+                                             style="width: 100%; height: 30px; overflow: hidden;">${productBean.title}</div>
                                         <div>
                                             <span class="text-left text-danger">￥${productBean.price}</span>
                                         </div>
                                         <div class="small">
-                                                <span style="width: 20px;">${productBean.author}</span> 著 / <span style="width: 20px;">${productBean.publishing_house}</span>
+                                            <span style="width: 20px;">${productBean.author}</span> 著 / <span
+                                                style="width: 20px;">${productBean.publishing_house}</span>
                                         </div>
-                                        <p><a class="btn btn-primary btn-block" role="button" href="bookDetail.jsp?id=${productBean.id}">查看详情</a>
+                                        <p><a class="btn btn-primary btn-block" role="button"
+                                              href="bookDetail.jsp?id=${productBean.id}">查看详情</a>
                                         </p>
-                                        <p><a href="#" class="btn btn-danger btn-block" role="button">加入购物车</a></p>
+                                        <p><a href="javascript: void(0);" onclick="addTocart(${productBean.id})" class="btn btn-danger btn-block"
+                                              role="button">加入购物车</a></p>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
+                        <script>
+                            function addTocart(id) {
+                                $.ajax({
+                                    url: "addToCart.jsp?id=" + id,
+                                    callback: "callback",
+                                    dataType: "jsonp",
+                                    success: function (data) {
+                                        alert("已添加到购物车");
+                                    },
+                                    error: function (err) {
+
+                                    }
+                                });
+                            }
+                        </script>
                     </div>
                 </div>
             </div>

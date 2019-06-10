@@ -8,7 +8,9 @@ import com.mysql.cj.protocol.Resultset;
 import com.sun.corba.se.spi.monitoring.StatisticMonitoredAttribute;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OrderDao implements IOrderDao {
 
@@ -67,5 +69,17 @@ public class OrderDao implements IOrderDao {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void addOrderItem(String order_no, int user_id, int count, float totalAmount) throws SQLException {
+        String sql = "insert into `order` (`order_no`, `user_id`, `product_count`, `product_amount_total`, `order_amount_total`, `created_at`) values (?,?,?,?,?,now())";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, order_no);
+        pstmt.setInt(2, user_id);
+        pstmt.setInt(3, count);
+        pstmt.setFloat(4, totalAmount);
+        pstmt.setFloat(5, totalAmount);
+        pstmt.execute();
     }
 }
