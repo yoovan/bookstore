@@ -78,8 +78,7 @@ public class ProductDao implements IProductDao {
     public ArrayList<ProductBean> searchProductByName(String name) throws SQLException {
         ArrayList<ProductBean> list = new ArrayList<>();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "select id, title, price, author, publishing_house from product where title like '%" + name + "%'";
-        System.out.println("sql: " + sql);
+        String sql = "select product.id, title, price, author, publishing_house, url from product join image on product.id=image.product_id where image.type=0 and title like '%" + name + "%'";
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
             System.out.println("row");
@@ -89,6 +88,7 @@ public class ProductDao implements IProductDao {
             dataBean.setPrice(rs.getFloat("price"));
             dataBean.setAuthor(rs.getString("author"));
             dataBean.setPublishing_house(rs.getString("publishing_house"));
+            dataBean.setUrl(rs.getString("url"));
             list.add(dataBean);
         }
         return list;
