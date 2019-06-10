@@ -27,7 +27,7 @@
                 <div class="thumbnail">
                     <a href="#">
                         <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-                             src="${dataBean.url}" >
+                             src="<c:url value="${dataBean.url}" /> " >
                     </a>
                     <div class="caption">
                         <div class="text-left" style="width: 100%; height: 30px; overflow: hidden;">${dataBean.title}</div>

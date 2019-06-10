@@ -99,11 +99,10 @@
                                 <div class="thumbnail">
                                     <a href="#">
                                         <img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-                                             src="data:image/svg+xml;base64,${productBean.url}" />
-                                            <%-- data-src="holder.js/100%x200" data-holder-rendered="true" --%>
+                                             src="<c:url value="${productBean.url}" />" />
                                     </a>
                                     <div class="caption">
-                                        <div class="text-left">${productBean.title}</div>
+                                        <div class="text-left" style="width: 100%; height: 30px; overflow: hidden;">${productBean.title}</div>
                                         <div>
                                             <span class="text-left text-danger">￥${productBean.price}</span>
                                         </div>
