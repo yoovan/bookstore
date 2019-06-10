@@ -30,7 +30,7 @@
                              src="${dataBean.url}" >
                     </a>
                     <div class="caption">
-                        <div class="text-left">${dataBean.title}</div>
+                        <div class="text-left" style="width: 100%; height: 30px; overflow: hidden;">${dataBean.title}</div>
                         <div>
                             <span class="text-left text-danger">￥${dataBean.price}</span>
                         </div>
