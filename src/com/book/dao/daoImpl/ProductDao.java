@@ -7,10 +7,7 @@ import com.book.model.home.RecommendCategoryBean;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -95,5 +92,32 @@ public class ProductDao implements IProductDao {
             list.add(dataBean);
         }
         return list;
+    }
+
+    @Override
+    public ProductBean getDetailById(int id) throws SQLException {
+        String sql = "select p.*, i.url, c.name  from `product` as p join image as i on p.id=i.product_id join category as c on p.category_id=c.id where p.id=? and i.type=0";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            ProductBean productBean = new ProductBean();
+            productBean.setId(rs.getInt("id"));
+            productBean.setTitle(rs.getString("title"));
+            productBean.setAuthor(rs.getString("author"));
+            productBean.setPrice(rs.getFloat("price"));
+            productBean.setUrl(rs.getString("url"));
+            productBean.setPublishing_house(rs.getString("publishing_house"));
+            productBean.setPublishing_time(rs.getString("publishing_time"));
+            productBean.setISBN(rs.getString("ISBN"));
+            productBean.setSummary(rs.getString("summary"));
+            productBean.setFormat(rs.getString("format"));
+            productBean.setPage_size(rs.getInt("page_size"));
+            productBean.setUpper_time(rs.getString("upper_time"));
+            productBean.setCategory_name(rs.getString("name"));
+            productBean.setEdition(rs.getInt("edition"));
+            return productBean;
+        }
+        return null;
     }
 }

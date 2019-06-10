@@ -31,4 +31,9 @@ public class ProductService implements IProductService {
     public ArrayList<ProductBean> searchProductByName(String name) throws SQLException {
         return productDao.searchProductByName(name);
     }
+
+    @Override
+    public ProductBean getDetailById(int id) throws SQLException {
+        return productDao.getDetailById(id);
+    }
 }

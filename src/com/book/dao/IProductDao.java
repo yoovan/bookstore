@@ -14,4 +14,6 @@ public interface IProductDao {
     ArrayList getRecommendCategories() throws SQLException, UnsupportedEncodingException;
 
     ArrayList<ProductBean> searchProductByName(String name) throws SQLException;
+
+    ProductBean getDetailById(int id) throws SQLException;
 }

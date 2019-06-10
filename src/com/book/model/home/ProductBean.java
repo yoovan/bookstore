@@ -15,6 +15,7 @@ public class ProductBean {
     private int page_size;
     private int edition;
     private int category_id;
+    private String category_name;
     private String summary;
     private String series;
     private String catalogue;
@@ -164,5 +165,13 @@ public class ProductBean {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 }
