@@ -42,5 +42,8 @@
     </div>
 </div>
 <%@ include file="/jsp/home/common/footer.jsp" %>
+<script>
+    $(".footer").addClass("navbar-fixed-bottom");
+</script>
 </body>
 </html>
