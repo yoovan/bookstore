@@ -19,13 +19,19 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        System.out.println(username + " : " + password);
+        if (username == null || username.equals("") || password == null || password.equals("")) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         UserService userService = new UserService();
         HttpSession session = request.getSession();
         try {
             UserBean userBean = userService.userLogin(username, password);
+            if (userBean == null) {
+                response.sendRedirect("login.jsp");
+                return;
+            }
             session.setAttribute("loginUser", userBean);
-            System.out.println("login success: " + userBean.getUsername());
             response.sendRedirect("index.jsp");
         } catch (SQLException e) {
             e.printStackTrace();

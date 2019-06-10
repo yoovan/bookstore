@@ -41,12 +41,10 @@ public class UserDao implements IUserDao {
         CenterPersonInfo centerPersonInfo = new CenterPersonInfo();
         try {
             String sql = "select u.id, u.username,u.phone, province, city, area, detail, a.username as contactName, a.phone as contactPhone from user as u join address as a on u.default_address_id=a.id where u.id=?";
-            System.out.println("sql: " + sql);
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                System.out.println("have data: " + rs.getString("username"));
                 centerPersonInfo.setId(rs.getInt("id"));
                 centerPersonInfo.setUsername(rs.getString("username"));
                 centerPersonInfo.setPhone(rs.getString("phone"));
@@ -187,14 +185,12 @@ public class UserDao implements IUserDao {
         pstmt.setString(1, username);
         pstmt.setString(2, password);
         ResultSet rs = pstmt.executeQuery();
-        if (rs != null) {
+        if (rs.next()) {
             UserBean dataBean = new UserBean();
-            while(rs.next()) {
-                dataBean.setId(rs.getInt("id"));
-                dataBean.setRole_type(rs.getInt("role_type"));
-                dataBean.setUsername(rs.getString("username"));
-                dataBean.setAvatar(rs.getString("avatar"));
-            }
+            dataBean.setId(rs.getInt("id"));
+            dataBean.setRole_type(rs.getInt("role_type"));
+            dataBean.setUsername(rs.getString("username"));
+            dataBean.setAvatar(rs.getString("avatar"));
             return dataBean;
         } else {
             return null;
