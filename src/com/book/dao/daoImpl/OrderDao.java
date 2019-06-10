@@ -4,11 +4,10 @@ import com.book.common.DatabaseConnector;
 import com.book.dao.IOrderDao;
 import com.book.model.home.OrderBean;
 import com.book.model.home.OrderManagerBean;
+import com.mysql.cj.protocol.Resultset;
+import com.sun.corba.se.spi.monitoring.StatisticMonitoredAttribute;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class OrderDao implements IOrderDao {
@@ -24,7 +23,7 @@ public class OrderDao implements IOrderDao {
         ArrayList<OrderBean> list = new ArrayList();
         OrderManagerBean targetBean = new OrderManagerBean();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "select id, order_no, status, product_count, order_amount_total from `order` where user_id=" + id;
+        String sql = "select id, order_no, status, product_count, order_amount_total from `order` where user_id=" + id + " and ISNULL(deleted_at)";
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
             OrderBean dataBean = new OrderBean();
@@ -46,5 +45,27 @@ public class OrderDao implements IOrderDao {
         }
         targetBean.setTotalPage(totalPage);
         return targetBean;
+    }
+
+    @Override
+    public boolean cancelOrderById(int id) throws SQLException {
+        String sql = "update `order` set status=4 where id=" + id;
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        int result = stmt.executeUpdate(sql);
+        if (result > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean destroyOrderById(int id) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sql = "update `order` set deleted_at=now() where id="+id;
+        int result = stmt.executeUpdate(sql);
+        if (result > 0) {
+            return true;
+        }
+        return false;
     }
 }

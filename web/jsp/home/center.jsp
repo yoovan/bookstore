@@ -152,14 +152,36 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
-                                            class="glyphicon glyphicon-shopping-cart"></i></a>
-                                    <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
-                                            class="glyphicon glyphicon-eye-open"></i></a>
-                                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
-                                            class="glyphicon glyphicon-remove"></i></a>
-                                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
-                                            class="glyphicon glyphicon-trash"></i></a>
+                                    <c:choose>
+                                        <c:when test="${dataBean.status == 0}">
+                                            <a href="#" class="btn btn-sm btn-success" data-toggle="tooltip" title="提交订单"><i
+                                                    class="glyphicon glyphicon-shopping-cart"></i></a>
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
+                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                                            <a href="orderCancel.jsp?id=${dataBean.id}" class="btn btn-sm btn-danger" data-toggle="tooltip" title="取消订单"><i
+                                                    class="glyphicon glyphicon-remove"></i></a>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 1}">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
+                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 2}">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
+                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 3}">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
+                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                                            <a href="orderDestroy.jsp?id=${dataBean.id}" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
+                                                    class="glyphicon glyphicon-trash"></i></a>
+                                        </c:when>
+                                        <c:when test="${dataBean.status == 4}">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="tooltip" title="查看订单"><i
+                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                                            <a href="orderDestroy.jsp?id=${dataBean.id}" class="btn btn-sm btn-danger" data-toggle="tooltip" title="删除订单"><i
+                                                    class="glyphicon glyphicon-trash"></i></a>
+                                        </c:when>
+                                    </c:choose>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -16,4 +16,14 @@ public class OrderService implements IOrderService {
     public OrderManagerBean getAllOrderByUserId(int id, int perPageSize) throws SQLException {
         return orderDao.getAllOrderByUserId(id, perPageSize);
     }
+
+    @Override
+    public boolean cancelOrderById(int id) throws SQLException {
+        return orderDao.cancelOrderById(id);
+    }
+
+    @Override
+    public boolean destroyOrderById(int id) throws SQLException {
+        return orderDao.destroyOrderById(id);
+    }
 }
