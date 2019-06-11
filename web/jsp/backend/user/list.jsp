@@ -51,8 +51,6 @@
                         <a href="#" class="layui-btn layui-icon layui-icon-edit layui-btn-sm" lay-event="edit"></a>
                         <a href="#" class="layui-btn layui-btn-danger layui-icon layui-icon-delete layui-btn-sm"
                            lay-event="delete"></a>
-                        <a href="#" class="layui-btn layui-btn-normal layui-icon layui-icon-right layui-btn-sm"
-                           lay-event="view"></a>
                     </div>
                 </script>
             </div>
@@ -73,16 +71,28 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">性别</label>
+            <label for="password" class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input type="radio" name="sex" value="男" title="男">
-                <input type="radio" name="sex" value="女" title="女">
+                <input type="text" name="password" value="" id="password" required autocomplete="false" placeholder="密码" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="phone" class="layui-form-label">签名</label>
+            <label for="confirm_password" class="layui-form-label">确认密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="confirm_password" value="" id="confirm_password" required autocomplete="false" placeholder="确认密码" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色</label>
+            <div class="layui-input-block">
+                <input type="radio" name="role_type" value="0" title="普通用户">
+                <input type="radio" name="role_type" value="1" title="管理员">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="phone" class="layui-form-label">手机号码</label>
             <div class="layui-input-inline">
-                <input type="text" name="phone" id="phone" class="layui-input">
+                <input type="text" name="phone" id="phone" lay-verify="phone" placeholder="手机号码" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

@@ -47,4 +47,9 @@ public class UserService implements IUserService {
     public boolean editPassword(int id, String old_password, String password) throws SQLException {
         return userDao.editPassword(id, old_password, password);
     }
+
+    @Override
+    public boolean destroyUser(int id) throws SQLException {
+        return userDao.destroyUser(id);
+    }
 }

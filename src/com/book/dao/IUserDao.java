@@ -26,7 +26,7 @@ public interface IUserDao {
 
     boolean editRoleType(int type);
 
-    boolean destroyUser(int id);
+    boolean destroyUser(int id) throws SQLException;
 
     UserBean userLogin(String username, String password) throws SQLException;
 

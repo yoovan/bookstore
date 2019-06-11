@@ -15,6 +15,8 @@ public interface IUserService {
 
     boolean editBasicInfo(UserBean dataBean);
 
+    boolean destroyUser(int id) throws SQLException;
+
     UserBean userLogin(String username, String password) throws SQLException;
 
     boolean userRegister(String username, String password) throws SQLException;
