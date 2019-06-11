@@ -2,7 +2,8 @@ package com.book.dao.daoImpl;
 
 import com.book.common.DatabaseConnector;
 import com.book.dao.IUserDao;
-import com.book.model.UserBean;
+import com.book.model.backend.UserBean;
+import com.book.model.backend.UserListBean;
 import com.book.model.home.CenterPersonInfo;
 
 import java.sql.*;
@@ -20,9 +21,10 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public ArrayList getUserList() {
+    public UserListBean getUserList() {
+        UserListBean userListBean = new UserListBean();
         ArrayList<UserBean> userList = new ArrayList<>();
-        String sql = "select * from user";
+        String sql = "select * from user where ISNULL(deleted_at)";
         try {
             Statement stmt = this.conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = stmt.executeQuery(sql);
@@ -30,10 +32,12 @@ public class UserDao implements IUserDao {
                 UserBean dataBean = this.initialUserData(rs);
                 userList.add(dataBean);
             }
+            userListBean.setData(userList);
+            userListBean.setCount(userList.size());
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }
-        return userList;
+        return userListBean;
     }
 
     @Override
@@ -68,6 +72,7 @@ public class UserDao implements IUserDao {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 userBean = this.initialUserData(rs);
+                userBean.setPassword(rs.getString("password"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -168,13 +173,14 @@ public class UserDao implements IUserDao {
         UserBean dataBean = new UserBean();
         dataBean.setId(rs.getInt("id"));
         dataBean.setUsername(rs.getString("username"));
-        dataBean.setPassword(rs.getString("password"));
-        dataBean.setAvatar(rs.getString("avatar"));
         dataBean.setPhone(rs.getString("phone"));
-        dataBean.setRole_type(rs.getInt("role_type"));
+        int role_type = rs.getInt("role_type");
+        String role_name = (role_type == 0) ? "普通用户" : "管理员";
+        System.out.println("role: " + role_name);
+        dataBean.setRole_type(role_type);
+        dataBean.setRole_name(role_name);
         dataBean.setDefault_address_id(rs.getInt("default_address_id"));
         dataBean.setCreate_at(rs.getDate("created_at"));
-        dataBean.setDeleted_at(rs.getDate("deleted_at"));
         return dataBean;
     }
 

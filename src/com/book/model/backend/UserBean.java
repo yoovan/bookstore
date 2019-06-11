@@ -1,4 +1,4 @@
-package com.book.model;
+package com.book.model.backend;
 
 import java.util.Date;
 
@@ -6,6 +6,7 @@ public class UserBean {
     private int id;
     private String username, password;
     private int role_type;
+    private String role_name;
     private String phone;
     private String avatar;
     private Date create_at;
@@ -82,5 +83,13 @@ public class UserBean {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public String getRole_name() {
+        return role_name;
+    }
+
+    public void setRole_name(String role_name) {
+        this.role_name = role_name;
     }
 }

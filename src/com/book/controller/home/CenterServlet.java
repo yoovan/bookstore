@@ -1,6 +1,6 @@
 package com.book.controller.home;
 
-import com.book.model.UserBean;
+import com.book.model.backend.UserBean;
 import com.book.model.home.CenterPersonInfo;
 import com.book.model.home.OrderManagerBean;
 import com.book.service.serviceImpl.OrderService;

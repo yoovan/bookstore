@@ -1,13 +1,14 @@
 package com.book.service;
 
-import com.book.model.UserBean;
+import com.book.model.backend.UserBean;
+import com.book.model.backend.UserListBean;
 import com.book.model.home.CenterPersonInfo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IUserService {
-    ArrayList getUserList();
+    UserListBean getUserList();
 
     UserBean getUserById(int id);
 

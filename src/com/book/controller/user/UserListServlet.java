@@ -19,7 +19,7 @@ public class UserListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         IUserService userService = new UserService();
-        ArrayList list = userService.getUserList();
+        ArrayList list = userService.getUserList().getData();
         request.setAttribute("userList", list);
         CommonUtils.redirect(request, response, "/index.jsp");
     }

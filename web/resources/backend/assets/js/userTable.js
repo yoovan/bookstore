@@ -6,7 +6,7 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
     var form = layui.form;
     table.render({
         elem: '#userList',
-        // url: 'https://www.layui.com/demo/table/user/',
+        url: 'all',
         page: true,
         // height: 550,
         id: 'tableList',
@@ -14,12 +14,10 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
             {type: 'checkbox', fixed: 'left'}
             , {field: 'id', title: 'ID', sort: true, fixed: 'left'}
             , {field: 'username', title: '用户名', sort: true}
-            , {field: 'sex', title: '性别', sort: true}
+            , {field: 'role_name', title: '角色', sort: true}
             , {field: 'phone', title: '手机号码'}
-            , {field: 'created_at', title: '注册时间',sort: true}
             , {title: '操作', fixed: 'right', align: 'center', toolbar: '#toolbar'}
         ]],
-        data: json.data
     });
     table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据

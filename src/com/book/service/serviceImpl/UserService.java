@@ -2,7 +2,8 @@ package com.book.service.serviceImpl;
 
 import com.book.dao.IUserDao;
 import com.book.dao.daoImpl.UserDao;
-import com.book.model.UserBean;
+import com.book.model.backend.UserBean;
+import com.book.model.backend.UserListBean;
 import com.book.model.home.CenterPersonInfo;
 import com.book.service.IUserService;
 
@@ -14,7 +15,7 @@ public class UserService implements IUserService {
     private IUserDao userDao = new UserDao();
 
     @Override
-    public ArrayList getUserList() {
+    public UserListBean getUserList() {
         return userDao.getUserList();
     }
 

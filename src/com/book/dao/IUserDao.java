@@ -1,6 +1,7 @@
 package com.book.dao;
 
-import com.book.model.UserBean;
+import com.book.model.backend.UserBean;
+import com.book.model.backend.UserListBean;
 import com.book.model.home.CenterPersonInfo;
 
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ public interface IUserDao {
 
     // 用户数据交互接口类
 
-    ArrayList getUserList();
+    UserListBean getUserList();
 
     CenterPersonInfo getUserByIdOfCenter(int id);
 

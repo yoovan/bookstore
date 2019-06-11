@@ -1,7 +1,7 @@
 package com.book.controller.user;
 
 import com.book.common.CommonUtils;
-import com.book.model.UserBean;
+import com.book.model.backend.UserBean;
 import com.book.service.IUserService;
 import com.book.service.serviceImpl.UserService;
 
