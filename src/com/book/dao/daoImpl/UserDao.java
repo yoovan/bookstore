@@ -185,7 +185,6 @@ public class UserDao implements IUserDao {
         dataBean.setPhone(rs.getString("phone"));
         int role_type = rs.getInt("role_type");
         String role_name = (role_type == 0) ? "普通用户" : "管理员";
-        System.out.println("role: " + role_name);
         dataBean.setRole_type(role_type);
         dataBean.setRole_name(role_name);
         dataBean.setDefault_address_id(rs.getInt("default_address_id"));
