@@ -81,7 +81,7 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
             url = "";
         } else {
             console.log("is add");
-            url = "plus";
+            url = "add";
         }
         $.ajax({
             url: url,
