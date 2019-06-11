@@ -2,7 +2,7 @@ package com.book.model.backend;
 
 import java.util.ArrayList;
 
-public class UserListBean {
+public class ReturnListBean {
     private int code;
     private String msg;
     private int count;

@@ -3,19 +3,18 @@ package com.book.service.serviceImpl;
 import com.book.dao.IUserDao;
 import com.book.dao.daoImpl.UserDao;
 import com.book.model.backend.UserBean;
-import com.book.model.backend.UserListBean;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.CenterPersonInfo;
 import com.book.service.IUserService;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class UserService implements IUserService {
 
     private IUserDao userDao = new UserDao();
 
     @Override
-    public UserListBean getUserList() {
+    public ReturnListBean getUserList() {
         return userDao.getUserList();
     }
 

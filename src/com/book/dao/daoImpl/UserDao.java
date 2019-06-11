@@ -3,7 +3,7 @@ package com.book.dao.daoImpl;
 import com.book.common.DatabaseConnector;
 import com.book.dao.IUserDao;
 import com.book.model.backend.UserBean;
-import com.book.model.backend.UserListBean;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.CenterPersonInfo;
 
 import java.sql.*;
@@ -21,8 +21,8 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public UserListBean getUserList() {
-        UserListBean userListBean = new UserListBean();
+    public ReturnListBean getUserList() {
+        ReturnListBean userListBean = new ReturnListBean();
         ArrayList<UserBean> userList = new ArrayList<>();
         String sql = "select * from user where ISNULL(deleted_at)";
         try {
