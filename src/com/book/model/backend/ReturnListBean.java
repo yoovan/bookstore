@@ -6,7 +6,7 @@ public class UserListBean {
     private int code;
     private String msg;
     private int count;
-    private ArrayList<UserBean> data;
+    private ArrayList data;
 
     public int getCode() {
         return code;
@@ -24,11 +24,11 @@ public class UserListBean {
         this.msg = msg;
     }
 
-    public ArrayList<UserBean> getData() {
+    public ArrayList getData() {
         return data;
     }
 
-    public void setData(ArrayList<UserBean> data) {
+    public void setData(ArrayList data) {
         this.data = data;
     }
 
