@@ -10,7 +10,7 @@ public interface IUserDao {
 
     // 用户数据交互接口类
 
-    ReturnListBean getUserList();
+    ReturnListBean getUserList(int start, int perPage);
 
     CenterPersonInfo getUserByIdOfCenter(int id);
 

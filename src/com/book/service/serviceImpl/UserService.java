@@ -14,8 +14,8 @@ public class UserService implements IUserService {
     private IUserDao userDao = new UserDao();
 
     @Override
-    public ReturnListBean getUserList() {
-        return userDao.getUserList();
+    public ReturnListBean getUserList(int start, int perPage) {
+        return userDao.getUserList(start, perPage);
     }
 
     @Override

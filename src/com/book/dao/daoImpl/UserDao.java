@@ -21,19 +21,22 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public ReturnListBean getUserList() {
+    public ReturnListBean getUserList(int start, int perPage) {
         ReturnListBean userListBean = new ReturnListBean();
         ArrayList<UserBean> userList = new ArrayList<>();
-        String sql = "select * from user where ISNULL(deleted_at)";
         try {
+            String sql = "select count(*)as total from user where isnull(deleted_at)";
             Statement stmt = this.conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            userListBean.setCount(rs.getInt("total"));
+            sql = "select * from user where ISNULL(deleted_at) limit " + start + "," + perPage;
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 UserBean dataBean = this.initialUserData(rs);
                 userList.add(dataBean);
             }
             userListBean.setData(userList);
-            userListBean.setCount(userList.size());
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }

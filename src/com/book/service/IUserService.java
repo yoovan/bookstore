@@ -7,7 +7,7 @@ import com.book.model.home.CenterPersonInfo;
 import java.sql.SQLException;
 
 public interface IUserService {
-    ReturnListBean getUserList();
+    ReturnListBean getUserList(int start, int perPage);
 
     UserBean getUserById(int id);
 
