@@ -23,7 +23,7 @@
             <div class="layui-row" style="padding-top: 10px;">
                 <form action="#" class="layui-form">
                     <div class="layui-form-item layui-inline">
-                        <button class="layui-btn layui-btn-normal layui-icon layui-icon-add-1">新增</button>
+                        <button class="layui-btn layui-btn-normal layui-icon layui-icon-add-1" id="add">新增</button>
                     </div>
                     <div class="layui-form-item layui-inline">
                         <div class="layui-input-inline">
@@ -63,29 +63,32 @@
 <script src="<c:url value="/resources/backend/assets/js/userTable.js" />"></script>
 </body>
 <div id="testDemo" style="display: none; padding-top: 15px; width: 900px;" class="layui-container">
-    <div class="layui-form" lay-filter="editForm">
+    <form action="admin/user/plus" method="post" class="layui-form" lay-filter="editForm">
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">用户名</label>
             <div class="layui-input-block">
-                <input type="text" name="username" value="" id="username" required autocomplete="false" placeholder="用户名" class="layui-input">
+                <input type="text" name="username" value="" id="username" required autocomplete="false"
+                       placeholder="用户名" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="password" class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input type="text" name="password" value="" id="password" required autocomplete="false" placeholder="密码" class="layui-input">
+                <input type="text" name="password" value="" id="password" required autocomplete="false" placeholder="密码"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="confirm_password" class="layui-form-label">确认密码</label>
             <div class="layui-input-block">
-                <input type="text" name="confirm_password" value="" id="confirm_password" required autocomplete="false" placeholder="确认密码" class="layui-input">
+                <input type="text" name="confirm_password" value="" id="confirm_password" required autocomplete="false"
+                       placeholder="确认密码" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">角色</label>
             <div class="layui-input-block">
-                <input type="radio" name="role_type" value="0" title="普通用户">
+                <input type="radio" name="role_type" value="0" checked title="普通用户">
                 <input type="radio" name="role_type" value="1" title="管理员">
             </div>
         </div>
@@ -97,10 +100,10 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input type="submit" value="立即修改" class="layui-btn">
+                <input type="button" value="提交" class="layui-btn" lay-submit lay-filter="submitBtn">
                 <input type="button" value="取消" class="layui-btn layui-btn-primary">
             </div>
         </div>
-    </div>
+    </form>
 </div>
 </html>

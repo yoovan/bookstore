@@ -52,4 +52,9 @@ public class UserService implements IUserService {
     public boolean destroyUser(int id) throws SQLException {
         return userDao.destroyUser(id);
     }
+
+    @Override
+    public int addUser(String username, String password, String phone, int role_type) throws SQLException {
+        return userDao.addUser(username, password, phone, role_type);
+    }
 }

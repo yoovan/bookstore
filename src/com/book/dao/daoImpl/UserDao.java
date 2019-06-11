@@ -221,4 +221,24 @@ public class UserDao implements IUserDao {
         pstmt.execute();
         return true;
     }
+
+    @Override
+    public int addUser(String username, String password, String phone, int role_type) throws SQLException {
+        String sql = "insert into user (username, password, phone, role_type, created_at) values (?,?,?,?,now())";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        pstmt.setString(2, password);
+        pstmt.setString(3, phone);
+        pstmt.setInt(4, role_type);
+        pstmt.execute();
+        sql = "select last_insert_id() as id";
+        ResultSet rs = pstmt.executeQuery(sql);
+        rs.next();
+        int id = rs.getInt("id");
+        System.out.println("insert id: " + id);
+        if (id > 0) {
+            return id;
+        }
+        return 0;
+    }
 }

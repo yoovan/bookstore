@@ -4,7 +4,7 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
     var layer = layui.layer;
     var $ = layui.jquery;
     var form = layui.form;
-    table.render({
+    var tableRequest = {
         elem: '#userList',
         url: 'all',
         page: true,
@@ -17,8 +17,10 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
             , {field: 'role_name', title: '角色', sort: true}
             , {field: 'phone', title: '手机号码'}
             , {title: '操作', fixed: 'right', align: 'center', toolbar: '#toolbar'}
-        ]],
-    });
+        ]]
+    };
+    var isEdit = false;
+    table.render(tableRequest);
     table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -31,7 +33,7 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
                     url: 'destroy',
                     type: 'post',
                     data: {
-                      id: data.id
+                        id: data.id
                     },
                     success: function (data) {
                         console.log("data: ", data);
@@ -46,6 +48,7 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
                 });
             });
         } else if (layEvent === 'edit') { //编辑
+            isEdit = true;
             console.log("data: " + data.username);
             layer.open({
                 type: 1,
@@ -60,5 +63,42 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
             });
             form.render();
         }
+    });
+    var layerAdd;
+    $("#add").click(function () {
+        isEdit = false;
+        layerAdd = layer.open({
+            type: 1,
+            title: '新增',
+            content: $('#testDemo'),
+            area: ['900px', '500px']
+        });
+    });
+    form.on('submit(submitBtn)', function (data) {
+        var url = "";
+        if (isEdit) {
+            console.log("is edit");
+            url = "";
+        } else {
+            console.log("is add");
+            url = "plus";
+        }
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: data.field,
+            success: function (data) {
+                if (data.code == 0) {
+                    layer.close(layerAdd);
+                    layer.msg(data.msg);
+                    table.render(tableRequest);
+                } else {
+                    layer.msg(data.msg);
+                }
+            },
+            error: function (err) {
+                layer.msg("操作失败");
+            }
+        });
     });
 });

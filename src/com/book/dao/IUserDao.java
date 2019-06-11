@@ -28,6 +28,8 @@ public interface IUserDao {
 
     boolean destroyUser(int id) throws SQLException;
 
+    int addUser(String username, String password, String phone, int role_type) throws SQLException;
+
     UserBean userLogin(String username, String password) throws SQLException;
 
     boolean userRegister(String username, String password) throws SQLException;
