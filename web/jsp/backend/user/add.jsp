@@ -20,7 +20,7 @@
     </div>
     <div class="layui-card-body layui-bg-gray">
         <div class="layui-fluid" style="background: white; padding-bottom: 20px;">
-            <form action="#" class="layui-form" style="padding-top: 20px;">
+            <form action="#" class="layui-form" style="padding-top: 20px;" lay-filter="addForm">
                 <div class="layui-form-item">
                     <label for="username" class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
@@ -40,10 +40,10 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
+                    <label class="layui-form-label">角色</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="sex" value="0" title="男" checked>
-                        <input type="radio" name="sex" value="1" title="女">
+                        <input type="radio" name="role_type" value="0" title="普通用户" checked>
+                        <input type="radio" name="role_type" value="1" title="管理员">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <input type="submit" class="layui-btn" value="立即添加">
+                        <input type="button" class="layui-btn" lay-submit lay-filter="submitBtn" value="立即添加">
                         <button class="layui-btn layui-btn-primary">取消</button>
                     </div>
                 </div>
@@ -67,7 +67,28 @@
 <script>
     layui.use(['form', 'element'], function () {
         var element = layui.element,
-            form = layui.form;
+            form = layui.form,
+            $ = layui.jquery;
+        form.on("submit(submitBtn)", function (data) {
+            $.ajax({
+                url: "add",
+                type: "post",
+                data: data.field,
+                success: function (data) {
+                     layer.msg(data.msg);
+                     form.val("addForm", {
+                         username: "",
+                         password: "",
+                         confirm_password: "",
+                         phone: ""
+                     });
+                },
+                error: function (err) {
+                    console.log(err);
+                    layer.msg("操作失败");
+                }
+            });
+        });
     })
 </script>
 </body>
