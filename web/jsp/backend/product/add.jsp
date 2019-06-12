@@ -24,13 +24,37 @@
                 <div class="layui-form-item">
                     <label for="isbn" class="layui-form-label">ISBN</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="ISBN" id="isbn" class="layui-input" required>
+                        <input type="text" name="ISBN" placeholder="必填" id="isbn" class="layui-input" required>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="title" class="layui-form-label">书名</label>
                     <div class="layui-input-block">
-                        <input type="text" id="title" name="title" class="layui-input" required>
+                        <input type="text" id="title" name="title" placeholder="必填" class="layui-input" required>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="thumb" class="layui-form-label">缩略图</label>
+                    <div class="layui-input-inline">
+                        <input type="file" id="thumb" name="thumb" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="carousel" class="layui-form-label">轮播图</label>
+                    <div class="layui-input-inline">
+                        <input type="file" id="carousel" name="carousel" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="author" class="layui-form-label">作者</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="author" name="author" placeholder="必填" class="layui-input" required>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="price" class="layui-form-label">定价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="price" placeholder="必填" name="price" required>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -40,22 +64,9 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="author" class="layui-form-label">作者</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="author" name="author" class="layui-input" required>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="price" class="layui-form-label">定价</label>
-                    <div class="layui-input-inline">
-                        <input type="text" class="layui-input" id="price" name="price" required>
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label for="category_id" class="layui-form-label">分类</label>
                     <div class="layui-input-block">
                         <select name="category_id" id="category_id">
-                            <option value="0"></option>
                             <option value="1">计算机</option>
                             <option value="2">青春文学</option>
                             <option value="3">散文</option>
