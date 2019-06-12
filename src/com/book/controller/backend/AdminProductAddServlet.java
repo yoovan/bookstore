@@ -2,6 +2,7 @@ package com.book.controller.backend;
 
 import com.book.common.CommonUtils;
 import com.book.model.backend.ReturnListBean;
+import com.book.service.serviceImpl.CategoryService;
 import com.book.service.serviceImpl.ProductService;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(name = "AdminProductAddServlet", urlPatterns = {"/admin/product/add", "/admin/product/add.jsp"})
 public class AdminProductAddServlet extends HttpServlet {
@@ -39,6 +41,16 @@ public class AdminProductAddServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            CategoryService categoryService = new CategoryService();
+            ArrayList list = categoryService.getAllCategory();
+            request.setAttribute("categoriesList", list);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/backend/product/add.jsp");
         dispatcher.forward(request, response);
     }
@@ -47,7 +59,7 @@ public class AdminProductAddServlet extends HttpServlet {
         String sql = "insert into product ";
         String temp = "(";
         String temp2 = "values(";
-        String ISBN = request.getParameter("book_no");
+        String ISBN = request.getParameter("isbn");
         if (!ISBN.equals("")){
             temp += "isbn,";
             temp2 += "'" + ISBN + "',";

@@ -11,7 +11,6 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
         id: 'bookTable',
         cols: [[
             {type: 'checkbox'},
-            {filed: 'isbn', title: '图书编号', sort: true},
             {field: 'title', title: "书名", sort: true},
             {field: 'author', title: '作者'},
             {field: 'publishing_house', title: '出版社'},

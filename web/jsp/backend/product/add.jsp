@@ -34,6 +34,18 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label for="author" class="layui-form-label">作者</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="author" name="author" placeholder="必填" class="layui-input" required>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="price" class="layui-form-label">定价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="price" placeholder="必填" name="price" required>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label for="thumb" class="layui-form-label">缩略图</label>
                     <div class="layui-input-inline">
                         <button type="button" class="layui-btn" id="thumb">
@@ -52,18 +64,6 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label for="author" class="layui-form-label">作者</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="author" name="author" placeholder="必填" class="layui-input" required>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="price" class="layui-form-label">定价</label>
-                    <div class="layui-input-inline">
-                        <input type="text" class="layui-input" id="price" placeholder="必填" name="price" required>
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label for="series" class="layui-form-label">丛书名</label>
                     <div class="layui-input-inline">
                         <input type="text" id="series" name="series" class="layui-input">
@@ -73,10 +73,11 @@
                     <label for="category_id" class="layui-form-label">分类</label>
                     <div class="layui-input-block">
                         <select name="category_id" id="category_id">
-                            <option value="1">计算机</option>
-                            <option value="2">青春文学</option>
-                            <option value="3">散文</option>
-                            <option value="4">小说</option>
+                            <c:forEach items="${requestScope.categoriesList}" varStatus="beanStatus" var="dataBean">
+                                <c:forEach items="${dataBean.secondCategory}" var="itemBean">
+                                    <option value="${itemBean.id}">${itemBean.name}</option>
+                                </c:forEach>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

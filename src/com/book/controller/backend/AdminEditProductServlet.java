@@ -49,7 +49,7 @@ public class AdminEditProductServlet extends HttpServlet {
 
     private String handleSql(HttpServletRequest request) {
         String sql = "update product set ";
-        String isbn = request.getParameter("book_no");
+        String isbn = request.getParameter("isbn");
         if (!isbn.equals("")) {
             sql += "isbn='" + isbn + "',";
         }
