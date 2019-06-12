@@ -12,4 +12,10 @@ public interface ICategoryService {
     SingleCategoryBean getCategoryAndBookById(int id) throws SQLException;
 
     ReturnListBean getAllCategoryByPaginate(int start, int perPage) throws SQLException;
+
+    ArrayList getFirstLevelCategories() throws SQLException;
+
+    boolean addCategory(String sql) throws SQLException;
+
+    boolean removeCategory(int id) throws SQLException;
 }

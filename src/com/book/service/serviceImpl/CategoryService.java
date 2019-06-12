@@ -31,4 +31,19 @@ public class CategoryService implements ICategoryService {
     public ReturnListBean getAllCategoryByPaginate(int start, int perPage) throws SQLException {
         return categoryDao.getAllCategoryByPaginate(start, perPage);
     }
+
+    @Override
+    public ArrayList getFirstLevelCategories() throws SQLException {
+        return categoryDao.getFirstLevelCategories();
+    }
+
+    @Override
+    public boolean addCategory(String sql) throws SQLException {
+        return categoryDao.addCategory(sql);
+    }
+
+    @Override
+    public boolean removeCategory(int id) throws SQLException {
+        return categoryDao.removeCategory(id);
+    }
 }

@@ -82,7 +82,7 @@ public class CategoryDao implements ICategoryDao {
         ResultSet rs = pstmt.executeQuery();
         rs.next();
         resultBean.setCount(rs.getInt("total")); // 获取总记录数
-        sql = "select id, `name`, pid from category where isnull(deleted_at)";
+        sql = "select id, `name`, pid, `type` from category where isnull(deleted_at)";
         pstmt = conn.prepareStatement(sql);
         rs = pstmt.executeQuery();
         ArrayList categoriesList = new ArrayList();
@@ -91,6 +91,7 @@ public class CategoryDao implements ICategoryDao {
             dataBean.setId(rs.getInt("id"));
             dataBean.setName(rs.getString("name"));
             dataBean.setPid(rs.getInt("pid"));
+            dataBean.setType(rs.getInt("type"));
             categoriesList.add(dataBean);
         }
 
@@ -109,5 +110,60 @@ public class CategoryDao implements ICategoryDao {
         }
         resultBean.setData(categoriesList);
         return resultBean;
+    }
+
+    @Override
+    public ArrayList getFirstLevelCategories() throws SQLException {
+        ArrayList list = new ArrayList();
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sql = "select * from category where level=1";
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            CategoryBean categoryBean = new CategoryBean();
+            categoryBean.setId(rs.getInt("id"));
+            categoryBean.setName(rs.getString("name"));
+            list.add(categoryBean);
+        }
+        return list;
+    }
+
+    @Override
+    public boolean addCategory(String sql) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmt.execute(sql);
+        sql = "select last_insert_id() as id";
+        ResultSet rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            int id = rs.getInt("id");
+            if (id > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeCategory(int id) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sql = "select pid from category where id=" + id;
+        ResultSet rs = stmt.executeQuery(sql);
+        int pid = 0;
+        if (rs.next()) {
+            pid = rs.getInt("pid");
+        }
+        sql = "update category set deleted_at=now() where id=" + id;
+        int result = stmt.executeUpdate(sql);
+        if (result > 0) {
+            // 如果删除的是顶级分类，则删除其下的子类
+            if (pid == 0) {
+                sql = "update category set deleted_at=now() where pid=" + id;
+                result = stmt.executeUpdate(sql);
+                if (result > 0) {
+                    return true;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }
