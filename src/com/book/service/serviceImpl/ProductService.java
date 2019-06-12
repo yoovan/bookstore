@@ -52,4 +52,9 @@ public class ProductService implements IProductService {
     public boolean addProduct(String sql) throws SQLException {
         return productDao.addProduct(sql);
     }
+
+    @Override
+    public boolean updateProduct(String sql) throws SQLException {
+        return productDao.updateProduct(sql);
+    }
 }

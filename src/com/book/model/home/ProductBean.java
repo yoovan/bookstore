@@ -6,7 +6,7 @@ public class ProductBean {
     private int id;
     private String title;
     private String author;
-    private String ISBN;
+    private String book_no;
     private float price;
     private String publishing_house;
     private String publishing_time;
@@ -55,12 +55,12 @@ public class ProductBean {
         this.author = author;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getBook_no() {
+        return book_no;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setBook_no(String book_no) {
+        this.book_no = book_no;
     }
 
     public float getPrice() {

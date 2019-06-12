@@ -2,9 +2,9 @@ package com.book.controller.backend;
 
 import com.book.common.CommonUtils;
 import com.book.model.backend.ReturnListBean;
+import com.book.model.home.ProductBean;
 import com.book.service.serviceImpl.ProductService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,113 +14,98 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-@WebServlet(name = "AdminProductAddServlet", urlPatterns = {"/admin/product/add", "/admin/product/add.jsp"})
-public class AdminProductAddServlet extends HttpServlet {
+@WebServlet(name = "AdminEditProductServlet", urlPatterns = {"/admin/product/edit"})
+public class AdminEditProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("json/application;charset=utf-8");
         PrintWriter out = response.getWriter();
         ReturnListBean resultBean = new ReturnListBean();
         String sql = this.handleSql(request);
-        System.out.println(sql);
-        ProductService productService = new ProductService();
-        try {
-            boolean result = productService.addProduct(sql);
-            if (result) {
-                resultBean.setCode(0);
-                resultBean.setMsg("添加成功");
-            } else {
-                resultBean.setCode(1);
-                resultBean.setMsg("添加失败");
+        String id_s = request.getParameter("id");
+        if (!id_s.equals("")) {
+            int id = Integer.parseInt(id_s);
+            sql += " where id=" + id;
+            System.out.println("sql: " + sql);
+            ProductService productService = new ProductService();
+            try {
+                boolean result = productService.updateProduct(sql);
+                if (result) {
+                    resultBean.setCode(0);
+                    resultBean.setMsg("修改成功");
+                } else {
+                    resultBean.setCode(1);
+                    resultBean.setMsg("修改失败");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
             out.print(CommonUtils.toJson(resultBean));
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/backend/product/add.jsp");
-        dispatcher.forward(request, response);
+
     }
 
-    private String handleSql (HttpServletRequest request) {
-        String sql = "insert into product ";
-        String temp = "(";
-        String temp2 = "values(";
-        String ISBN = request.getParameter("book_no");
-        if (!ISBN.equals("")){
-            temp += "isbn,";
-            temp2 += "'" + ISBN + "',";
+    private String handleSql(HttpServletRequest request) {
+        String sql = "update product set ";
+        String isbn = request.getParameter("book_no");
+        if (!isbn.equals("")) {
+            sql += "isbn='" + isbn + "',";
         }
         String title = request.getParameter("title");
         if (!title.equals("")) {
-            temp += "title,";
-            temp2 += "'" + title + "',";
+            sql += "title='" + title+ "',";
         }
         String author = request.getParameter("author");
         if(!author.equals("")) {
-            temp += "author,";
-            temp2 += "'" + author + "',";
+            sql += "author='" + author+ "',";
         }
         String price_s = request.getParameter("price");
         if (!price_s.equals("")) {
-            temp += "price,";
             int price = Integer.parseInt(price_s);
-            temp2 += "" + price + ",";
+            sql += "price=" + price+ ",";
         }
         String series = request.getParameter("series");
         if (!series.equals("")) {
-            temp += "series,";
-            temp2 += "'" + series + "',";
+            sql += "series='" + series + "',";
         }
         String id = request.getParameter("category_id");
         if (!id.equals("")) {
-            temp += "category_id,";
             int categroy_id = Integer.parseInt(id);
-            temp2 += "" + categroy_id + ",";
+            sql += "category_id=" + categroy_id + ",";
         }
         String publishing_house = request.getParameter("publishing_house");
         if (!publishing_house.equals("")) {
-            temp += "publishing_house,";
-            temp2 += "'" + publishing_house + "',";
+            sql += "publishing_house='" + publishing_house + "',";
         }
         String publishing_time = request.getParameter("publishing_time");
         if (!publishing_time.equals("")) {
-            temp += "publishing_time,";
-            temp2 += "'" + publishing_time + "',";
+            sql += "publishing_time='" + publishing_time + "',";
         }
         String format = request.getParameter("format");
         if (!format.equals("")) {
-            temp += "format,";
-            temp2 += "'" + format + "',";
+            sql += "format='" + format + "',";
         }
         String pageSize = request.getParameter("page_size");
         if (!pageSize.equals("")) {
-            temp += "page_size,";
             int page_size = Integer.parseInt(pageSize);
-            temp2 +=  page_size + ",";
+            sql += "page_size=" + page_size + ",";
         }
         String edition_s = request.getParameter("edition");
         if (!edition_s.equals("")) {
-            temp += "edition,";
             int edition = Integer.parseInt(edition_s);
-            temp2 += edition + ",";
+            sql += "edition=" + edition + ",";
         }
         String summary = request.getParameter("summary");
         if (!summary.equals("")) {
-            temp += "summary,";
-            temp2 += "'" + summary + "',";
+            sql += "summary='" + summary + "',";
         }
         String catalogue = request.getParameter("catalogue");
         if (!catalogue.equals("")) {
-            temp += "catalogue,";
-            temp2 += "'" + catalogue + "',";
+            sql += "catalogue='" + catalogue + "',";
         }
-        temp = temp.substring(0, temp.lastIndexOf(","));
-        temp += ")";
-        temp2 = temp2.substring(0, temp2.lastIndexOf(","));
-        temp2 += ")";
-        sql = sql + temp + temp2;
+        sql = sql.substring(0, sql.lastIndexOf(","));
         return sql;
     }
 }

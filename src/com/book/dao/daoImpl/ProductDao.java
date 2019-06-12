@@ -6,6 +6,7 @@ import com.book.model.backend.ReturnListBean;
 import com.book.model.home.ProductBean;
 import com.book.model.home.RecommendCategoryBean;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
+import jdk.internal.org.objectweb.asm.commons.StaticInitMerger;
 
 import javax.xml.transform.Result;
 import java.io.UnsupportedEncodingException;
@@ -112,7 +113,7 @@ public class ProductDao implements IProductDao {
             productBean.setUrl(rs.getString("url"));
             productBean.setPublishing_house(rs.getString("publishing_house"));
             productBean.setPublishing_time(rs.getString("publishing_time"));
-            productBean.setISBN(rs.getString("ISBN"));
+            productBean.setBook_no(rs.getString("isbn"));
             productBean.setSummary(rs.getString("summary"));
             productBean.setFormat(rs.getString("format"));
             productBean.setPage_size(rs.getInt("page_size"));
@@ -132,21 +133,31 @@ public class ProductDao implements IProductDao {
         ResultSet rs = pstmt.executeQuery();
         rs.next();
         resultBean.setCount(rs.getInt("total"));
-        sql = "select ISBN, title, author, publishing_house, publishing_time, upper_time from product where isnull(deleted_at) limit ?, ?";
+        sql = "select * from product where isnull(deleted_at) limit ?, ?";
         pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, start);
         pstmt.setInt(2, perPage);
         rs = pstmt.executeQuery();
         ArrayList list = new ArrayList();
         while(rs.next()) {
-            ProductBean dataBean = new ProductBean();
-            dataBean.setISBN(rs.getString("ISBN"));
-            dataBean.setTitle(rs.getString("title"));
-            dataBean.setAuthor(rs.getString("author"));
-            dataBean.setPublishing_house(rs.getString("publishing_house"));
-            dataBean.setPublishing_time(rs.getString("publishing_house"));
-            dataBean.setUpper_time(rs.getString("upper_time"));
-            list.add(dataBean);
+            ProductBean productBean = new ProductBean();
+            productBean.setId(rs.getInt("id"));
+            productBean.setTitle(rs.getString("title"));
+            productBean.setAuthor(rs.getString("author"));
+            productBean.setPrice(rs.getFloat("price"));
+            productBean.setPublishing_house(rs.getString("publishing_house"));
+            productBean.setPublishing_time(rs.getString("publishing_time"));
+            productBean.setBook_no(rs.getString("isbn"));
+            productBean.setSummary(rs.getString("summary"));
+            productBean.setFormat(rs.getString("format"));
+            productBean.setPage_size(rs.getInt("page_size"));
+            productBean.setUpper_time(rs.getString("upper_time"));
+            productBean.setEdition(rs.getInt("edition"));
+            productBean.setPage_size(rs.getInt("page_size"));
+            productBean.setCategory_id(rs.getInt("category_id"));
+            productBean.setSeries(rs.getString("series"));
+            productBean.setCatalogue(rs.getString("catalogue"));
+            list.add(productBean);
         }
         resultBean.setData(list);
         return resultBean;
@@ -190,6 +201,16 @@ public class ProductDao implements IProductDao {
             id = rs.getInt("id");
         }
         if (id > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateProduct(String sql) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        int result = stmt.executeUpdate(sql);
+        if (result > 0) {
             return true;
         }
         return false;

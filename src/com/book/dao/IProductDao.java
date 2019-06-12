@@ -23,4 +23,6 @@ public interface IProductDao {
     ReturnListBean getAllCarouselByPaginate(int start, int perPage) throws SQLException;
 
     boolean addProduct(String sql) throws SQLException;
+
+    boolean updateProduct(String sql) throws  SQLException;
 }
