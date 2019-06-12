@@ -24,4 +24,6 @@ public interface IUserService {
     boolean userRegister(String username, String password) throws SQLException;
 
     boolean editPassword(int id, String old_password, String password) throws SQLException;
+
+    boolean updateUserInfo(String sql) throws SQLException;
 }

@@ -243,4 +243,14 @@ public class UserDao implements IUserDao {
         }
         return 0;
     }
+
+    @Override
+    public boolean updateUserInfo(String sql) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        int result = stmt.executeUpdate(sql);
+        if (result > 0) {
+            return true;
+        }
+        return false;
+    }
 }

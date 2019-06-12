@@ -64,6 +64,7 @@
 </body>
 <div id="testDemo" style="display: none; padding-top: 15px; width: 900px;" class="layui-container">
     <form action="admin/user/plus" method="post" class="layui-form" lay-filter="editForm">
+        <input type="hidden" name="id">
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">用户名</label>
             <div class="layui-input-block">
@@ -95,7 +96,7 @@
         <div class="layui-form-item">
             <label for="phone" class="layui-form-label">手机号码</label>
             <div class="layui-input-inline">
-                <input type="text" name="phone" id="phone" lay-verify="phone" placeholder="手机号码" class="layui-input">
+                <input type="text" name="phone" id="phone" placeholder="手机号码" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

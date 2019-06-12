@@ -20,6 +20,7 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
         ]]
     };
     var isEdit = false;
+    var layerEdit;
     table.render(tableRequest);
     table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
@@ -50,13 +51,14 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
         } else if (layEvent === 'edit') { //编辑
             isEdit = true;
             console.log("data: " + data.username);
-            layer.open({
+            layerEdit = layer.open({
                 type: 1,
                 title: '编辑',
                 content: $('#testDemo'),
                 area: ['900px', '500px']
             });
             form.val("editForm", {
+                id: data.id,
                 username: data.username,
                 phone: data.phone,
                 role_type: data.role_type
@@ -75,10 +77,11 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
         });
     });
     form.on('submit(submitBtn)', function (data) {
+        console.log(data.field);
         var url = "";
         if (isEdit) {
             console.log("is edit");
-            url = "";
+            url = "edit";
         } else {
             console.log("is add");
             url = "add";
@@ -89,7 +92,11 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
             data: data.field,
             success: function (data) {
                 if (data.code == 0) {
-                    layer.close(layerAdd);
+                    if (isEdit) {
+                        layer.close(layerEdit);
+                    } else {
+                        layer.close(layerAdd);
+                    }
                     layer.msg(data.msg);
                     table.render(tableRequest);
                 } else {
@@ -97,7 +104,8 @@ layui.use(['element', 'table', 'layer', 'form'], function () {
                 }
             },
             error: function (err) {
-                layer.msg("操作失败");
+                console.log(err);
+                layer.msg("操作失败,");
             }
         });
     });

@@ -18,6 +18,8 @@ public interface IUserDao {
 
     boolean editBasicInfo(UserBean dataBean);
 
+    boolean updateUserInfo(String sql) throws SQLException;
+
     boolean editPhone(int id, String number) throws SQLException;
 
     boolean editPassword(int id, String old_password, String password) throws SQLException;

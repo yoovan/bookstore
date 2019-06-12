@@ -57,4 +57,9 @@ public class UserService implements IUserService {
     public int addUser(String username, String password, String phone, int role_type) throws SQLException {
         return userDao.addUser(username, password, phone, role_type);
     }
+
+    @Override
+    public boolean updateUserInfo(String sql) throws SQLException {
+        return userDao.updateUserInfo(sql);
+    }
 }
