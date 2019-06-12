@@ -178,4 +178,20 @@ public class ProductDao implements IProductDao {
         }
         return dataBean;
     }
+
+    @Override
+    public boolean addProduct(String sql) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmt.execute(sql);
+        sql = "select last_insert_id() as id";
+        ResultSet rs = stmt.executeQuery(sql);
+        int id = 0;
+        if (rs.next()) {
+            id = rs.getInt("id");
+        }
+        if (id > 0) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -47,4 +47,9 @@ public class ProductService implements IProductService {
     public ReturnListBean getAllCarouselByPaginate(int start, int perPage) throws SQLException {
         return productDao.getAllCarouselByPaginate(start, perPage);
     }
+
+    @Override
+    public boolean addProduct(String sql) throws SQLException {
+        return productDao.addProduct(sql);
+    }
 }

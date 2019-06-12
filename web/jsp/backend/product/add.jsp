@@ -20,7 +20,7 @@
     </div>
     <div class="layui-card-body layui-bg-gray">
         <div class="layui-fluid" style="background: white; padding-bottom: 20px;">
-            <form action="#" class="layui-form" style="padding-top: 20px;">
+            <form action="#" class="layui-form" style="padding-top: 20px;" lay-filter="addForm">
                 <div class="layui-form-item">
                     <label for="isbn" class="layui-form-label">ISBN</label>
                     <div class="layui-input-inline">
@@ -36,13 +36,19 @@
                 <div class="layui-form-item">
                     <label for="thumb" class="layui-form-label">缩略图</label>
                     <div class="layui-input-inline">
-                        <input type="file" id="thumb" name="thumb" class="layui-input">
+                        <button type="button" class="layui-btn" id="thumb">
+                            <i class="layui-icon">&#xe67c;</i>上传缩略图
+                        </button>
+                        <input type="hidden" name="thumb" value="">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="carousel" class="layui-form-label">轮播图</label>
                     <div class="layui-input-inline">
-                        <input type="file" id="carousel" name="carousel" class="layui-input">
+                        <button type="button" class="layui-btn" id="carousel">
+                            <i class="layui-icon">&#xe67c;</i>上传轮播图
+                        </button>
+                        <input type="hidden" name="carousel" value="">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -118,7 +124,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <input type="submit" class="layui-btn" value="立即添加">
+                        <input type="button" class="layui-btn" lay-submit lay-filter="submitBtn" value="立即添加">
                         <button class="layui-btn layui-btn-primary">取消</button>
                     </div>
                 </div>
@@ -129,10 +135,51 @@
 
 <script src="<c:url value="/resources/backend/assets/layui/layui.js" />"></script>
 <script>
-    layui.use(['element', 'form'], function () {
+    layui.use(['element', 'form', 'upload'], function () {
         var element = layui.element,
-            form = layui.form;
-    })
+            form = layui.form,
+            upload = layui.upload,
+            $ = layui.jquery;
+        //执行实例
+        var uploadThumb = upload.render({
+            elem: '#thumb', //绑定元素,
+            auto: false,
+            url: '', //上传接口
+            done: function (res) {
+                //上传完毕回调
+            }
+            , error: function () {
+                //请求异常回调
+            }
+        });
+        var uploadCarousel = upload.render({
+            elem: '#carousel', //绑定元素,
+            auto: false,
+            url: '', //上传接口
+            done: function (res) {
+                //上传完毕回调
+            }
+            , error: function () {
+                //请求异常回调
+            }
+        });
+        form.on("submit(submitBtn)", function (data) {
+            $.ajax({
+                url: "add",
+                method: "post",
+                data: data.field,
+                success: function (data) {
+                    layer.msg(data.msg);
+                    setTimeout(function () {
+                        location.href = "list.jsp"
+                    }, 1500);
+                },
+                error: function (err) {
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

@@ -11,8 +11,7 @@ layui.use(['element', 'table', 'layer'], function () {
             {field: 'username', title: '下单用户'},
             {field: 'product_count', title: '商品数量'},
             {field: 'order_amount_total', title: '实付金额'},
-            {field: 'status_name', title: '订单状态'},
-            {title: '操作', align: 'center', toolbar: '#toolbar'}
+            {field: 'status_name', title: '订单状态'}
         ]],
         page: true,
         id: 'orderTable'
