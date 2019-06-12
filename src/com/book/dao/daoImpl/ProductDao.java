@@ -151,4 +151,31 @@ public class ProductDao implements IProductDao {
         resultBean.setData(list);
         return resultBean;
     }
+
+    @Override
+    public ReturnListBean getAllCarouselByPaginate(int start, int perPage) throws SQLException {
+        ArrayList<ProductBean> carouselList = new ArrayList<>();
+        ReturnListBean dataBean = new ReturnListBean();
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        String sql  = "select product.id, title, url, author from product inner join image on product.id=image.product_id where image.type=3 limit " + start + ", " + perPage;
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) {
+            ProductBean productBean = new ProductBean();
+            productBean.setId(rs.getInt("id"));
+            productBean.setTitle(rs.getString("title"));
+            productBean.setUrl(rs.getString("url"));
+            productBean.setAuthor(rs.getString("author"));
+            carouselList.add(productBean);
+        }
+        dataBean.setData(carouselList);
+        sql = "select count(*) as total from product join image on product.id=image.product_id where image.type=3";
+        rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            dataBean.setCount(rs.getInt("total"));
+            System.out.println("count: " + dataBean.getCount());
+        } else {
+            dataBean.setCount(0);
+        }
+        return dataBean;
+    }
 }

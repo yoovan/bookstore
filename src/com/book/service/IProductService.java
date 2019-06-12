@@ -17,4 +17,6 @@ public interface IProductService {
     ProductBean getDetailById(int id) throws SQLException;
 
     ReturnListBean getAllProductsByPaginate(int start, int perPage) throws SQLException;
+
+    ReturnListBean getAllCarouselByPaginate(int start, int perPage) throws SQLException;
 }

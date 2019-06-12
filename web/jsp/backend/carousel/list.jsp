@@ -21,14 +21,12 @@
     <div class="layui-card-body layui-bg-gray">
         <div class="layui-fluid" style="background: white; padding-bottom: 20px;">
             <div class="layui-row" style="padding-top: 10px;">
-                <table id="bookList" class="layui-hide" lay-filter="bookList"></table>
+                <table id="carouselList" class="layui-hide" lay-filter="carouselList"></table>
                 <script type="text/html" id="toolbar">
                     <div class="layui-btn-container">
                         <a href="#" class="layui-btn layui-icon layui-icon-edit layui-btn-sm" lay-event="edit"></a>
                         <a href="#" class="layui-btn layui-btn-danger layui-icon layui-icon-delete layui-btn-sm"
                            lay-event="delete"></a>
-                        <a href="#" class="layui-btn layui-btn-normal layui-icon layui-icon-right layui-btn-sm"
-                           lay-event="view"></a>
                     </div>
                 </script>
             </div>
@@ -36,8 +34,7 @@
     </div>
 </div>
 <script src="<c:url value="/resources/backend/assets/layui/layui.js" />"></script>
-<script src="<c:url value="/resources/backend/assets/js/categoryData.js" />"></script>
-<script src="<c:url value="/resources/backend/assets/js/categoryTable.js" />"></script>
+<script src="<c:url value="/resources/backend/assets/js/carouselTable.js?v=1.0" />"></script>
 </body>
 <div id="testDemo" style="display: none; padding-top: 15px; width: 900px;" class="layui-container">
     <div class="layui-form" lay-filter="editForm">

@@ -2,7 +2,7 @@
 require('../../js/transition.js')
 require('../../js/alert.js')
 require('../../js/button.js')
-require('../../js/carousel.js')
+require('../../js/carouselTable.js')
 require('../../js/collapse.js')
 require('../../js/dropdown.js')
 require('../../js/modal.js')
