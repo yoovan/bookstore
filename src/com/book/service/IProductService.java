@@ -23,4 +23,6 @@ public interface IProductService {
     boolean addProduct(String sql) throws SQLException;
 
     boolean updateProduct(String sql) throws  SQLException;
+
+    boolean setStatus(int id, int status) throws SQLException;
 }

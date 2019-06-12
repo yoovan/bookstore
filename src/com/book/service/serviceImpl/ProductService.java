@@ -57,4 +57,9 @@ public class ProductService implements IProductService {
     public boolean updateProduct(String sql) throws SQLException {
         return productDao.updateProduct(sql);
     }
+
+    @Override
+    public boolean setStatus(int id, int status) throws SQLException {
+        return productDao.setStatus(id, status);
+    }
 }

@@ -213,4 +213,17 @@ public class ProductDao implements IProductDao {
         }
         return false;
     }
+
+    @Override
+    public boolean setStatus(int id, int type) throws SQLException {
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String sql = "update product set type=" + type + " where id=" + id;
+        int result = stmt.executeUpdate(sql);
+        if (result > 0) {
+             return true;
+        }
+        return false;
+    }
+
+
 }
