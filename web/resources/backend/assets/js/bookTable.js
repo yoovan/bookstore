@@ -39,6 +39,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
                 author: data.author,
                 price: data.price,
                 series: data.series,
+                type: data.type,
                 category_id: data.category_id,
                 publishing_house: data.publishing_house,
                 publishing_time: data.publishing_time,

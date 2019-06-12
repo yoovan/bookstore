@@ -63,9 +63,11 @@ public class AdminEditProductServlet extends HttpServlet {
         }
         String price_s = request.getParameter("price");
         if (!price_s.equals("")) {
-            int price = Integer.parseInt(price_s);
+            float price = Float.parseFloat(price_s);
             sql += "price=" + price+ ",";
         }
+        int type = Integer.parseInt(request.getParameter("type"));
+        sql += "type=" + type + ",";
         String series = request.getParameter("series");
         if (!series.equals("")) {
             sql += "series='" + series + "',";

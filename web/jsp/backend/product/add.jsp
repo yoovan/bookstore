@@ -46,6 +46,14 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">显示类型</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="0" title="普通显示" checked>
+                        <input type="radio" name="type" value="1" title="轮播图">
+                        <input type="radio" name="type" value="2" title="推荐分类商品">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label for="thumb" class="layui-form-label">缩略图</label>
                     <div class="layui-input-inline">
                         <button type="button" class="layui-btn" id="thumb">

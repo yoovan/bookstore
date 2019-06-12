@@ -77,7 +77,7 @@ public class AdminProductAddServlet extends HttpServlet {
         String price_s = request.getParameter("price");
         if (!price_s.equals("")) {
             temp += "price,";
-            int price = Integer.parseInt(price_s);
+            float price = Float.parseFloat(price_s);
             temp2 += "" + price + ",";
         }
         String series = request.getParameter("series");
@@ -128,6 +128,9 @@ public class AdminProductAddServlet extends HttpServlet {
             temp += "catalogue,";
             temp2 += "'" + catalogue + "',";
         }
+        int type = Integer.parseInt(request.getParameter("type"));
+        temp += "type,";
+        temp2 +=  type + ",";
         temp = temp.substring(0, temp.lastIndexOf(","));
         temp += ")";
         temp2 = temp2.substring(0, temp2.lastIndexOf(","));

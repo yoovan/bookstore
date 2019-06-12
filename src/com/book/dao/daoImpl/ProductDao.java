@@ -113,6 +113,7 @@ public class ProductDao implements IProductDao {
             productBean.setPublishing_house(rs.getString("publishing_house"));
             productBean.setPublishing_time(rs.getString("publishing_time"));
             productBean.setISBN(rs.getString("isbn"));
+            productBean.setType(rs.getInt("type"));
             productBean.setSummary(rs.getString("summary"));
             productBean.setFormat(rs.getString("format"));
             productBean.setPage_size(rs.getInt("page_size"));
@@ -147,6 +148,8 @@ public class ProductDao implements IProductDao {
             productBean.setPublishing_house(rs.getString("publishing_house"));
             productBean.setPublishing_time(rs.getString("publishing_time"));
             productBean.setISBN(rs.getString("isbn"));
+            productBean.setType(rs.getInt("type"));
+            System.out.println("type: " + productBean.getType());
             productBean.setSummary(rs.getString("summary"));
             productBean.setFormat(rs.getString("format"));
             productBean.setPage_size(rs.getInt("page_size"));
