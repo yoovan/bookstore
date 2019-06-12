@@ -6,6 +6,7 @@ public class OrderBean {
     private int id;
     private String order_no;
     private int user_id;
+    private String username;
     private int product_count;
     private float product_amount_total;
     private float order_amount_total;
@@ -13,6 +14,7 @@ public class OrderBean {
     private int address_id;
     private int order_logistics_id;
     private int status;
+    private String status_name;
     private int pay_channel;
     private String pay_trade_no;
     private Date created_at;
@@ -155,5 +157,21 @@ public class OrderBean {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getStatus_name() {
+        return status_name;
+    }
+
+    public void setStatus_name(String status_name) {
+        this.status_name = status_name;
     }
 }

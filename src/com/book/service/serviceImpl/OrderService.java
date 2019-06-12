@@ -2,6 +2,7 @@ package com.book.service.serviceImpl;
 
 import com.book.dao.IOrderDao;
 import com.book.dao.daoImpl.OrderDao;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.OrderManagerBean;
 import com.book.service.IOrderService;
 
@@ -35,5 +36,10 @@ public class OrderService implements IOrderService {
     @Override
     public boolean payOrderById(int id) throws SQLException {
         return orderDao.payOrderById(id);
+    }
+
+    @Override
+    public ReturnListBean getOrdersByPaginate(int start, int perPage) throws SQLException {
+        return orderDao.getOrdersByPaginate(start, perPage);
     }
 }

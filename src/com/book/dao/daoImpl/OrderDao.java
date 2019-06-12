@@ -2,6 +2,7 @@ package com.book.dao.daoImpl;
 
 import com.book.common.DatabaseConnector;
 import com.book.dao.IOrderDao;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.OrderBean;
 import com.book.model.home.OrderManagerBean;
 import com.mysql.cj.protocol.Resultset;
@@ -92,5 +93,42 @@ public class OrderDao implements IOrderDao {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public ReturnListBean getOrdersByPaginate(int start, int perPage) throws SQLException {
+        ReturnListBean resultBean = new ReturnListBean();
+        String sql = "select count(*) as total from product where isnull(deleted_at)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        resultBean.setCount(rs.getInt("total"));
+        sql = "select order.id, order.order_no, user.username, order.product_count, order.order_amount_total, order.status from `user` join `order` on order.user_id=user.id limit ?,?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, start);
+        pstmt.setInt(2, perPage);
+        rs = pstmt.executeQuery();
+        ArrayList list = new ArrayList();
+        while(rs.next()) {
+            OrderBean dataBean = new OrderBean();
+            dataBean.setId(rs.getInt("id"));
+            dataBean.setOrder_no(rs.getString("order_no"));
+            dataBean.setOrder_amount_total(rs.getFloat("order_amount_total"));
+            dataBean.setProduct_count(rs.getInt("product_count"));
+            dataBean.setUsername(rs.getString("username"));
+            int status = rs.getInt("status");
+            String status_name = "";
+            switch (status) {
+                case 0: status_name="未付款";break;
+                case 1: status_name="已付款"; break;
+                case 2: status_name = "已发货"; break;
+                case 3: status_name = "已签收"; break;
+                case 4: status_name = "取消交易"; break;
+            }
+            dataBean.setStatus_name(status_name);
+            list.add(dataBean);
+        }
+        resultBean.setData(list);
+        return resultBean;
     }
 }

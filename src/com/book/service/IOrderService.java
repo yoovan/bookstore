@@ -1,5 +1,6 @@
 package com.book.service;
 
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.OrderManagerBean;
 
 import java.sql.SQLException;
@@ -14,4 +15,6 @@ public interface IOrderService {
     void addOrderItem(String order_no, int user_id,int count, float totalAmount) throws SQLException;
 
     boolean payOrderById(int id) throws SQLException;
+
+    ReturnListBean getOrdersByPaginate(int start, int perPage) throws SQLException;
 }
