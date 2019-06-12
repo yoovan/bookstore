@@ -2,6 +2,7 @@ package com.book.service.serviceImpl;
 
 import com.book.dao.IProductDao;
 import com.book.dao.daoImpl.ProductDao;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.ProductBean;
 import com.book.service.IProductService;
 
@@ -35,5 +36,10 @@ public class ProductService implements IProductService {
     @Override
     public ProductBean getDetailById(int id) throws SQLException {
         return productDao.getDetailById(id);
+    }
+
+    @Override
+    public ReturnListBean getAllProductsByPaginate(int start, int perPage) throws SQLException {
+        return productDao.getAllProductsByPaginate(start, perPage);
     }
 }

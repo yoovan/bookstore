@@ -1,5 +1,6 @@
 package com.book.dao;
 
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.ProductBean;
 
 import java.io.UnsupportedEncodingException;
@@ -16,4 +17,6 @@ public interface IProductDao {
     ArrayList<ProductBean> searchProductByName(String name) throws SQLException;
 
     ProductBean getDetailById(int id) throws SQLException;
+
+    ReturnListBean getAllProductsByPaginate(int start, int perPage) throws SQLException;
 }

@@ -52,8 +52,6 @@
                         <a href="#" class="layui-btn layui-icon layui-icon-edit layui-btn-sm" lay-event="edit"></a>
                         <a href="#" class="layui-btn layui-btn-danger layui-icon layui-icon-delete layui-btn-sm"
                            lay-event="delete"></a>
-                        <a href="#" class="layui-btn layui-btn-normal layui-icon layui-icon-right layui-btn-sm"
-                           lay-event="view"></a>
                     </div>
                 </script>
             </div>
@@ -63,7 +61,7 @@
 
 <script src="<c:url value="/resources/backend/assets/layui/layui.js" />"></script>
 <script src="<c:url value="/resources/backend/assets/js/bookData.js" />"></script>
-<script src="<c:url value="/resources/backend/assets/js/bookTable.js" />"></script>
+<script src="<c:url value="/resources/backend/assets/js/bookTable.js?v=1.0" />"></script>
 </body>
 <div id="testDemo" style="display: none; padding-top: 15px; width: 900px;" class="layui-container">
     <div class="layui-form" lay-filter="editForm">

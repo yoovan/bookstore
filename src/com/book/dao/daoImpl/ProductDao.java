@@ -2,9 +2,12 @@ package com.book.dao.daoImpl;
 
 import com.book.common.DatabaseConnector;
 import com.book.dao.IProductDao;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.ProductBean;
 import com.book.model.home.RecommendCategoryBean;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 
+import javax.xml.transform.Result;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
@@ -119,5 +122,33 @@ public class ProductDao implements IProductDao {
             return productBean;
         }
         return null;
+    }
+
+    @Override
+    public ReturnListBean getAllProductsByPaginate(int start, int perPage) throws SQLException {
+        ReturnListBean resultBean = new ReturnListBean();
+        String sql = "select count(*) as total from product where isnull(deleted_at)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        resultBean.setCount(rs.getInt("total"));
+        sql = "select ISBN, title, author, publishing_house, publishing_time, upper_time from product where isnull(deleted_at) limit ?, ?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, start);
+        pstmt.setInt(2, perPage);
+        rs = pstmt.executeQuery();
+        ArrayList list = new ArrayList();
+        while(rs.next()) {
+            ProductBean dataBean = new ProductBean();
+            dataBean.setISBN(rs.getString("ISBN"));
+            dataBean.setTitle(rs.getString("title"));
+            dataBean.setAuthor(rs.getString("author"));
+            dataBean.setPublishing_house(rs.getString("publishing_house"));
+            dataBean.setPublishing_time(rs.getString("publishing_house"));
+            dataBean.setUpper_time(rs.getString("upper_time"));
+            list.add(dataBean);
+        }
+        resultBean.setData(list);
+        return resultBean;
     }
 }

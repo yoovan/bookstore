@@ -5,6 +5,9 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
         layer = layui.layer;
     table.render({
         elem: '#bookList',
+        url: 'all',
+        page: true,
+        id: 'bookTable',
         cols: [[
             {type: 'checkbox'},
             {filed: 'ISBN', title: 'ISBN', sort: true},
@@ -14,10 +17,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
             {field: 'publishing_time', title: '出版时间'},
             {field: 'upper_time', title: '上架时间'},
             {title: '操作', toolbar: '#toolbar', align: 'center'}
-        ]],
-        page: true,
-        data: json.data,
-        id: 'bookTable'
+        ]]
     });
     table.on('tool(bookList)', function (obj) {
 
