@@ -60,6 +60,6 @@
 
 <script src="<c:url value="/resources/backend/assets/layui/layui.js" />"></script>
 <script src="<c:url value="/resources/backend/assets/js/categoryData.js" />"></script>
-<script src="<c:url value="/resources/backend/assets/js/categoryTable.js" />"></script>
+<script src="<c:url value="/resources/backend/assets/js/categoryTable.js?v=1.0" />"></script>
 </body>
 </html>

@@ -2,15 +2,13 @@ package com.book.dao.daoImpl;
 
 import com.book.common.DatabaseConnector;
 import com.book.dao.ICategoryDao;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.CategoryBean;
 import com.book.model.home.LevelCategoryBean;
 import com.book.model.home.ProductBean;
 import com.book.model.home.SingleCategoryBean;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class CategoryDao implements ICategoryDao {
@@ -38,7 +36,7 @@ public class CategoryDao implements ICategoryDao {
             sql = "select id, `name` from category where level=2 and pid=" + levelList.get(i).getId();
             rs2 = stmt.executeQuery(sql);
             ArrayList<CategoryBean> categoriesList = new ArrayList<>();
-            while (rs2.next()){
+            while (rs2.next()) {
                 CategoryBean dataBean = new CategoryBean();
                 dataBean.setId(rs2.getInt("id"));
                 dataBean.setName(rs2.getString("name"));
@@ -53,15 +51,15 @@ public class CategoryDao implements ICategoryDao {
     public SingleCategoryBean getCategoryAndBookById(int id) throws SQLException {
         SingleCategoryBean dataBean = new SingleCategoryBean();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "select name from category where id="+id;
+        String sql = "select name from category where id=" + id;
         ResultSet rs1 = stmt.executeQuery(sql);
         if (rs1.next()) {
             dataBean.setName(rs1.getString("name"));
         }
-        sql = "select p.id, c.`name`, p.title, p.price, p.author, p.publishing_time, p.publishing_house, i.url from product as p JOIN category as c on p.category_id=c.id JOIN image as i on i.product_id=p.id where  c.id="+id;
+        sql = "select p.id, c.`name`, p.title, p.price, p.author, p.publishing_time, p.publishing_house, i.url from product as p JOIN category as c on p.category_id=c.id JOIN image as i on i.product_id=p.id where  c.id=" + id;
         ResultSet rs2 = stmt.executeQuery(sql);
         ArrayList productList = new ArrayList();
-        while(rs2.next()) {
+        while (rs2.next()) {
             ProductBean productBean = new ProductBean();
             productBean.setId(rs2.getInt("id"));
             productBean.setTitle(rs2.getString("title"));
@@ -74,5 +72,42 @@ public class CategoryDao implements ICategoryDao {
         }
         dataBean.setList(productList);
         return dataBean;
+    }
+
+    @Override
+    public ReturnListBean getAllCategoryByPaginate(int start, int perPage) throws SQLException {
+        ReturnListBean resultBean = new ReturnListBean();
+        String sql = "select count(*) as total from category where isnull(deleted_at)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        resultBean.setCount(rs.getInt("total")); // 获取总记录数
+        sql = "select id, `name`, pid from category where isnull(deleted_at)";
+        pstmt = conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+        ArrayList categoriesList = new ArrayList();
+        while (rs.next()) {
+            CategoryBean dataBean = new CategoryBean();
+            dataBean.setId(rs.getInt("id"));
+            dataBean.setName(rs.getString("name"));
+            dataBean.setPid(rs.getInt("pid"));
+            categoriesList.add(dataBean);
+        }
+
+        for (int i = 0; i < categoriesList.size(); i++) {
+            CategoryBean categoryBean = ((CategoryBean) categoriesList.get(i));
+            if (categoryBean.getPid() == 0) {
+                categoryBean.setPname("顶级分类");
+            } else {
+                // 或者再循环一遍ArrayList
+                sql = "select `name` from category where id=" + categoryBean.getPid();
+                pstmt = conn.prepareStatement(sql);
+                rs = pstmt.executeQuery();
+                rs.next();
+                categoryBean.setPname(rs.getString("name"));
+            }
+        }
+        resultBean.setData(categoriesList);
+        return resultBean;
     }
 }

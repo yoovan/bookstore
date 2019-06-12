@@ -7,6 +7,7 @@ public class CategoryBean {
     private int level;
     private String name;
     private int pid;
+    private String pname;
     private Date deleted_at;
 
     public int getId() {
@@ -47,5 +48,13 @@ public class CategoryBean {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 }

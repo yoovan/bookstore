@@ -4,15 +4,15 @@ layui.use(['element', 'table', 'layer'], function () {
         layer = layui.layer;
     table.render({
         elem: "#categoryList",
+        url: 'all',
         page: true,
+        id: 'categoryTable',
         cols: [[
             {type: 'checkbox'},
             {field: 'id', title: "id", sort: true},
             {field: 'name', title: "分类名称", sort: true},
             {field: 'pname', title: '父级分类'},
             {title: "操作", align: 'center', toolbar: '#toolbar'}
-        ]],
-        data: json.data,
-        id: 'categoryTable'
+        ]]
     });
 });

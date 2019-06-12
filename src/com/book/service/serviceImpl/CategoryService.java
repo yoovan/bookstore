@@ -2,6 +2,7 @@ package com.book.service.serviceImpl;
 
 import com.book.dao.ICategoryDao;
 import com.book.dao.daoImpl.CategoryDao;
+import com.book.model.backend.ReturnListBean;
 import com.book.model.home.SingleCategoryBean;
 import com.book.service.ICategoryService;
 
@@ -24,5 +25,10 @@ public class CategoryService implements ICategoryService {
     @Override
     public SingleCategoryBean getCategoryAndBookById(int id) throws SQLException {
         return categoryDao.getCategoryAndBookById(id);
+    }
+
+    @Override
+    public ReturnListBean getAllCategoryByPaginate(int start, int perPage) throws SQLException {
+        return categoryDao.getAllCategoryByPaginate(start, perPage);
     }
 }
