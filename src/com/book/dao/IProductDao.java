@@ -27,4 +27,6 @@ public interface IProductDao {
     boolean updateProduct(String sql) throws  SQLException;
 
     boolean setStatus(int id, int status) throws SQLException;
+
+    boolean removeProduct(int id) throws SQLException;
 }

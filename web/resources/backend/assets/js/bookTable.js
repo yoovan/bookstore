@@ -51,6 +51,24 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
                 catalogue: data.catalogue
             });
             form.render();
+        } else if (layEvent === 'delete') {
+            layer.confirm("确定删除这个商品吗？", function (index) {
+                $.ajax({
+                    url: 'remove',
+                    method: 'post',
+                    data: {
+                        id: data.id
+                    },
+                    success: function (data) {
+                        obj.del();
+                        layer.msg(data.msg);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        layer.msg("操作失败");
+                    }
+                });
+            });
         }
     });
     form.on("submit(submitBtn)", function (data) {

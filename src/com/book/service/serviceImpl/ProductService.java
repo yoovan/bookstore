@@ -62,4 +62,9 @@ public class ProductService implements IProductService {
     public boolean setStatus(int id, int status) throws SQLException {
         return productDao.setStatus(id, status);
     }
+
+    @Override
+    public boolean removeProduct(int id) throws SQLException {
+        return productDao.removeProduct(id);
+    }
 }
