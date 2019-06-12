@@ -3,6 +3,7 @@ package com.book.controller.backend;
 import com.book.common.CommonUtils;
 import com.book.model.backend.ReturnListBean;
 import com.book.service.serviceImpl.CategoryService;
+import com.book.service.serviceImpl.ImageService;
 import com.book.service.serviceImpl.ProductService;
 
 import javax.servlet.RequestDispatcher;
@@ -23,11 +24,19 @@ public class AdminProductAddServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         ReturnListBean resultBean = new ReturnListBean();
         String sql = this.handleSql(request);
-        System.out.println(sql);
         ProductService productService = new ProductService();
         try {
-            boolean result = productService.addProduct(sql);
-            if (result) {
+            int result = productService.addProductReturnInt(sql);
+            if (result > 0) {
+                ImageService imageService = new ImageService();
+                String thumb = request.getParameter("thumb");
+                if (!thumb.equals("")) {
+                    imageService.saveImage(result, 0, thumb);
+                }
+                String carousel = request.getParameter("carousel");
+                if (!carousel.equals("")) {
+                    imageService.saveImage(result, 3, thumb);
+                }
                 resultBean.setCode(0);
                 resultBean.setMsg("添加成功");
             } else {
@@ -36,6 +45,8 @@ public class AdminProductAddServlet extends HttpServlet {
             }
             out.print(CommonUtils.toJson(resultBean));
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

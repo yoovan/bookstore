@@ -60,8 +60,7 @@
 </div>
 
 <script src="<c:url value="/resources/backend/assets/layui/layui.js" />"></script>
-<script src="<c:url value="/resources/backend/assets/js/bookData.js" />"></script>
-<script src="<c:url value="/resources/backend/assets/js/bookTable.js?v=1.1" />"></script>
+<script src="<c:url value="/resources/backend/assets/js/bookTable.js?v=1.2" />"></script>
 </body>
 <div id="testDemo" style="display: none; padding-top: 15px; width: 900px;" class="layui-container">
     <div class="layui-form" lay-filter="editForm">

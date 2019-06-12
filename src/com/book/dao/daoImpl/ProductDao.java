@@ -192,7 +192,16 @@ public class ProductDao implements IProductDao {
     }
 
     @Override
-    public boolean addProduct(String sql) throws SQLException {
+    public boolean addProductReturnBool(String sql) throws SQLException {
+       int id = this.addProductReturnInt(sql);
+        if (id > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int addProductReturnInt(String sql) throws SQLException {
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         stmt.execute(sql);
         sql = "select last_insert_id() as id";
@@ -201,10 +210,7 @@ public class ProductDao implements IProductDao {
         if (rs.next()) {
             id = rs.getInt("id");
         }
-        if (id > 0) {
-            return true;
-        }
-        return false;
+        return id;
     }
 
     @Override

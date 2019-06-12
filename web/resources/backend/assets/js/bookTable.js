@@ -1,8 +1,9 @@
-layui.use(['element', 'form', 'table', 'layer'], function () {
+layui.use(['element', 'form', 'table', 'layer', 'upload'], function () {
     var element = layui.element,
         form = layui.form,
         table = layui.table,
         layer = layui.layer,
+        upload=layui.upload,
         $ = layui.jquery;
     var requestTable = {
         elem: '#bookList',
@@ -69,6 +70,38 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
                     }
                 });
             });
+        }
+    });
+    //执行实例
+    var uploadThumb = upload.render({
+        elem: '#thumb', //绑定元素,
+        // auto: false,
+        url: 'upload', //上传接口
+        done: function (res) {
+            //上传完毕回调
+            console.log(res);
+            var filename = res.data[0];
+            $("input[type=hidden][name=thumb]").val("/resources/upload/" + filename);
+            layer.msg("上传成功");
+        }
+        , error: function () {
+            //请求异常回调
+            layer.msg("上传失败");
+        }
+    });
+    var uploadCarousel = upload.render({
+        elem: '#carousel', //绑定元素,
+        // auto: false,
+        url: 'upload', //上传接口
+        done: function (res) {
+            //上传完毕回调
+            var filename = res.data[0];
+            $("input[type=hidden][name=carousel]").val("/resources/upload/" + filename);
+            layer.msg("上传成功");
+        }
+        , error: function () {
+            //请求异常回调
+            layer.msg("上传失败");
         }
     });
     form.on("submit(submitBtn)", function (data) {

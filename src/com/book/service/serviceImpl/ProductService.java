@@ -49,8 +49,13 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public boolean addProduct(String sql) throws SQLException {
-        return productDao.addProduct(sql);
+    public boolean addProductReturnBool(String sql) throws SQLException {
+        return productDao.addProductReturnBool(sql);
+    }
+
+    @Override
+    public int addProductReturnInt(String sql) throws SQLException {
+        return productDao.addProductReturnInt(sql);
     }
 
     @Override

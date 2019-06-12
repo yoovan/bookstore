@@ -3,6 +3,7 @@ package com.book.controller.backend;
 import com.book.common.CommonUtils;
 import com.book.model.backend.ReturnListBean;
 import com.book.model.home.ProductBean;
+import com.book.service.serviceImpl.ImageService;
 import com.book.service.serviceImpl.ProductService;
 
 import javax.servlet.ServletException;
@@ -30,6 +31,15 @@ public class AdminEditProductServlet extends HttpServlet {
             try {
                 boolean result = productService.updateProduct(sql);
                 if (result) {
+                    ImageService imageService = new ImageService();
+                    String thumb = request.getParameter("thumb");
+                    if (!thumb.equals("")) {
+                        imageService.saveImage(id, 0, thumb);
+                    }
+                    String carousel = request.getParameter("carousel");
+                    if (!carousel.equals("")) {
+                        imageService.saveImage(id, 3, thumb);
+                    }
                     resultBean.setCode(0);
                     resultBean.setMsg("修改成功");
                 } else {
@@ -37,6 +47,8 @@ public class AdminEditProductServlet extends HttpServlet {
                     resultBean.setMsg("修改失败");
                 }
             } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
             out.print(CommonUtils.toJson(resultBean));

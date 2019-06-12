@@ -2,3 +2,4 @@
 out/
 web/WEB-INF/classes/
 book_server.iml
+web/resources/upload/
