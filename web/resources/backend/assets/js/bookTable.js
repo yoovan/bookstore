@@ -11,7 +11,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
         id: 'bookTable',
         cols: [[
             {type: 'checkbox'},
-            {filed: 'book_no', title: '图书编号', sort: true},
+            {filed: 'isbn', title: '图书编号', sort: true},
             {field: 'title', title: "书名", sort: true},
             {field: 'author', title: '作者'},
             {field: 'publishing_house', title: '出版社'},
@@ -35,7 +35,7 @@ layui.use(['element', 'form', 'table', 'layer'], function () {
             });
             form.val("editForm", {
                 id: data.id,
-                book_no: data.book_no,
+                isbn: data.isbn,
                 title: data.title,
                 author: data.author,
                 price: data.price,

@@ -32,7 +32,7 @@ public class ProductDao implements IProductDao {
     public ArrayList getCarouselList() throws SQLException {
         ArrayList<ProductBean> carouselList = new ArrayList<>();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql  = "select product.id, title, url from product inner join image on product.id=image.product_id where image.type=3";
+        String sql  = "select product.id, title, url from product inner join image on product.id=image.product_id where image.type=3 and product.type=1";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()) {
             ProductBean dataBean = new ProductBean();
@@ -60,7 +60,7 @@ public class ProductDao implements IProductDao {
         int length = recommendCategoryList.size();
         for (int i = 0 ;i < length; i++) {
             int id = recommendCategoryList.get(i).getCategory_id();
-            sql = "select p.id as product_id,c.id as category_id, p.author, p.publishing_house, i.url,p.title, p.price, c.name from (product as p INNER JOIN category as c on p.category_id=c.id) INNER JOIN image as i ON p.id=i.product_id WHERE i.type=0 and c.id=" + id;
+            sql = "select p.id as product_id,c.id as category_id, p.author, p.publishing_house, i.url,p.title, p.price, c.name from (product as p INNER JOIN category as c on p.category_id=c.id) INNER JOIN image as i ON p.id=i.product_id WHERE i.type=0 and c.id=" + id + " and p.type=2";
             rs2 = stmt.executeQuery(sql);
             ArrayList productList = new ArrayList();
             while(rs2.next()) {
@@ -85,7 +85,6 @@ public class ProductDao implements IProductDao {
         String sql = "select product.id, title, price, author, publishing_house, url from product join image on product.id=image.product_id where image.type=0 and title like '%" + name + "%'";
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
-            System.out.println("row");
             ProductBean dataBean = new ProductBean();
             dataBean.setId(rs.getInt("id"));
             dataBean.setTitle(rs.getString("title"));
@@ -113,7 +112,7 @@ public class ProductDao implements IProductDao {
             productBean.setUrl(rs.getString("url"));
             productBean.setPublishing_house(rs.getString("publishing_house"));
             productBean.setPublishing_time(rs.getString("publishing_time"));
-            productBean.setBook_no(rs.getString("isbn"));
+            productBean.setISBN(rs.getString("isbn"));
             productBean.setSummary(rs.getString("summary"));
             productBean.setFormat(rs.getString("format"));
             productBean.setPage_size(rs.getInt("page_size"));
@@ -147,7 +146,7 @@ public class ProductDao implements IProductDao {
             productBean.setPrice(rs.getFloat("price"));
             productBean.setPublishing_house(rs.getString("publishing_house"));
             productBean.setPublishing_time(rs.getString("publishing_time"));
-            productBean.setBook_no(rs.getString("isbn"));
+            productBean.setISBN(rs.getString("isbn"));
             productBean.setSummary(rs.getString("summary"));
             productBean.setFormat(rs.getString("format"));
             productBean.setPage_size(rs.getInt("page_size"));
@@ -168,7 +167,7 @@ public class ProductDao implements IProductDao {
         ArrayList<ProductBean> carouselList = new ArrayList<>();
         ReturnListBean dataBean = new ReturnListBean();
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql  = "select product.id, title, url, author from product inner join image on product.id=image.product_id where image.type=3 limit " + start + ", " + perPage;
+        String sql  = "select product.id, title, url, author from product inner join image on product.id=image.product_id where image.type=3 and product.type=1 limit " + start + ", " + perPage;
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()) {
             ProductBean productBean = new ProductBean();
@@ -179,11 +178,10 @@ public class ProductDao implements IProductDao {
             carouselList.add(productBean);
         }
         dataBean.setData(carouselList);
-        sql = "select count(*) as total from product join image on product.id=image.product_id where image.type=3";
+        sql = "select count(*) as total from product where type=1";
         rs = stmt.executeQuery(sql);
         if (rs.next()) {
             dataBean.setCount(rs.getInt("total"));
-            System.out.println("count: " + dataBean.getCount());
         } else {
             dataBean.setCount(0);
         }

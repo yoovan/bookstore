@@ -52,14 +52,13 @@ public class CartServlet extends HttpServlet {
     private String getOrderNo() {
         String k = "book-no";
         Date D = new Date();
-        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String a = df.format(D);
-        String g = a.substring(0, 8);
         int data = 10001;
         int e = data + Integer.parseInt(a.substring(a.length() - 4));
         String f = String.valueOf(e);
         String f1 = f.substring(f.length() - 4);
-        System.out.println(k + g + f1);
-        return k + g + f1;
+        System.out.println(k + a + f1);
+        return k + a + f1;
     }
 }

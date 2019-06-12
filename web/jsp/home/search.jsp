@@ -38,11 +38,26 @@
                             ${dataBean.author} 著 / ${dataBean.publishing_house}
                         </div>
                         <p><a class="btn btn-primary btn-block" role="button" href="bookDetail.jsp?id=${dataBean.id}">查看详情</a></p>
-                        <p><a href="#" class="btn btn-danger btn-block" role="button">加入购物车</a></p>
+                        <p><a href="#" class="btn btn-danger btn-block" role="button" onclick="addToCart(${dataBean.id})">加入购物车</a></p>
                     </div>
                 </div>
             </div>
         </c:forEach>
+        <script>
+            function addToCart(id) {
+                $.ajax({
+                    url: "addToCart.jsp?id=" + id,
+                    callback: "callback",
+                    dataType: "jsonp",
+                    success: function (data) {
+                        alert("已添加到购物车");
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            }
+        </script>
     </div>
 </div>
 <%@ include file="/jsp/home/common/footer.jsp" %>

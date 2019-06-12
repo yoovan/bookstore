@@ -33,10 +33,25 @@
                         </td>
                         <td>
                             <a href="bookDetail.jsp?id=${dataBean.id}" class="btn btn-sm btn-info btn-block">查看详情</a>
-                            <a href="#" class="btn btn-sm btn-danger btn-block">加入购入车</a>
+                            <a href="#" class="btn btn-sm btn-danger btn-block" onclick="addToCart(${dataBean.id})">加入购入车</a>
                         </td>
                     </tr>
                 </c:forEach>
+                <script>
+                    function addToCart(id) {
+                        $.ajax({
+                            url: "addToCart.jsp?id=" + id,
+                            callback: "callback",
+                            dataType: "jsonp",
+                            success: function (data) {
+                                alert("已添加到购物车");
+                            },
+                            error: function (err) {
+
+                            }
+                        });
+                    }
+                </script>
             </c:if>
             <c:if test="${not isNull}">
                 <p class="text-center">该类别暂无商品</p>

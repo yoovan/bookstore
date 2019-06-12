@@ -114,14 +114,14 @@
                                         <p><a class="btn btn-primary btn-block" role="button"
                                               href="bookDetail.jsp?id=${productBean.id}">查看详情</a>
                                         </p>
-                                        <p><a href="javascript: void(0);" onclick="addTocart(${productBean.id})" class="btn btn-danger btn-block"
+                                        <p><a href="javascript: void(0);" onclick="addToCart(${productBean.id})" class="btn btn-danger btn-block"
                                               role="button">加入购物车</a></p>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
                         <script>
-                            function addTocart(id) {
+                            function addToCart(id) {
                                 $.ajax({
                                     url: "addToCart.jsp?id=" + id,
                                     callback: "callback",

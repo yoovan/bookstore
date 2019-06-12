@@ -129,8 +129,8 @@
                         $(document).ready(function () {
                             $("#totalCount").text(totalCount);
                             $("#totalAmount").text(totalAmount.toFixed(2));
-                            $("input[type=text][name=totalCount]").val(totalCount);
-                            $("input[type=text][name=totalAmount]").val(totalAmount.toFixed(2));
+                            $("input[type=hidden][name=totalCount]").val(totalCount);
+                            $("input[type=hidden][name=totalAmount]").val(totalAmount.toFixed(2));
                         });
                     </script>
                 </tfoot>
@@ -152,8 +152,12 @@
                         window.location.href = "login.jsp";
                         return false;
                     }
-                    $("input[type=text][name=totalCount]").val(totalCount);
-                    $("input[type=text][name=totalAmount]").val(totalAmount.toFixed(2));
+                    $("input[type=hidden][name=totalCount]").val(totalCount);
+                    $("input[type=hidden][name=totalAmount]").val(totalAmount.toFixed(2));
+                    if (totalCount === 0) {
+                        alert("购物车是空的。。");
+                        return false;
+                    }
                     return true;
                 }
             </script>

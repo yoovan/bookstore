@@ -24,7 +24,7 @@
                 <div class="layui-form-item">
                     <label for="isbn" class="layui-form-label">ISBN</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="ISBN" placeholder="必填" id="isbn" class="layui-input" required>
+                        <input type="text" name="isbn" placeholder="必填" id="isbn" class="layui-input" required>
                     </div>
                 </div>
                 <div class="layui-form-item">
